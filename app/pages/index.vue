@@ -1,7 +1,17 @@
 <template>
   <div class="relative">
+    <!-- TEXT -->
+    <div
+      class="absolute inset-0 z-10 flex h-screen items-center justify-center"
+    >
+      <HeatDistortImageInteractive
+        src="/files/sonaria_festival_text.png"
+        alt="Sonaria background image"
+        class="h-48 w-96"
+      />
+    </div>
     <!-- Desktop image -->
-    <HeatDistortImage
+    <HeatDistortImageInteractive
       src="/files/sonaria_website_querformat.png"
       alt="Sonaria background image"
       class="
@@ -10,7 +20,7 @@
       "
     />
     <!-- MOBILE IMAGE -->
-    <HeatDistortImage
+    <HeatDistortImageInteractive
       src="/files/sonaria_website_hochformat.png"
       alt="Sonaria background image"
       class="
@@ -18,6 +28,7 @@
         lg:hidden
       "
     />
+
     <div class="max-w-2xl space-y-4">
       <Container class="py-10">
         <h1 class="text-3xl font-semibold">
