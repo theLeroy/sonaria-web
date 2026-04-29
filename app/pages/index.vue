@@ -1,14 +1,34 @@
 <template>
-  <Container class="py-10">
+  <div class="relative">
+    <!-- Desktop image -->
+    <NuxtImg
+      src="/files/sonaria_website_querformat.png"
+      alt="Sonaria background image"
+      class="
+        absolute inset-0 hidden h-screen w-full object-cover
+        lg:block
+      "
+    />
+    <!-- MOBILE IMAGE -->
+    <NuxtImg
+      src="/files/sonaria_website_hochformat.png"
+      alt="Sonaria background image"
+      class="
+        absolute inset-0 h-screen w-full object-cover
+        lg:hidden
+      "
+    />
     <div class="max-w-2xl space-y-4">
-      <h1 class="text-3xl font-semibold">
-        {{ siteName }}
-      </h1>
-      <p class="text-lg">
-        This build runs **without any backend/CMS**. Content and navigation are local-only.
-      </p>
+      <Container class="py-10">
+        <h1 class="text-3xl font-semibold">
+          {{ siteName }}
+        </h1>
+        <p class="text-lg">
+          This build runs **without any backend/CMS**. Content and navigation are local-only.
+        </p>
+      </Container>
     </div>
-  </Container>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -2,14 +2,14 @@
   <div
     class="grid min-h-screen grid-rows-[auto_1fr_auto]"
   >
-    <TabNavigation />
-    <AppNavigationMain />
+    <!-- <TabNavigation /> -->
+    <!-- <AppNavigationMain /> -->
 
-    <main class="mt-navbar-height">
+    <main>
       <slot />
     </main>
 
-    <AppNavigationFooter />
+    <!-- <AppNavigationFooter /> -->
   </div>
 </template>
 

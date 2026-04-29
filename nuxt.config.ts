@@ -62,11 +62,7 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: [
-    '@vueuse/nuxt',
-    '@nuxtjs/i18n',
-    'nuxt-security',
-  ],
+  modules: ['@vueuse/nuxt', '@nuxtjs/i18n', 'nuxt-security', '@nuxt/image'],
   i18n: {
     baseUrl: process.env.APP_URL,
     defaultLocale: 'de',
