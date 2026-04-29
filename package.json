@@ -1,0 +1,59 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "scripts": {
+    "build": "pnpm gql && nuxt build",
+    "dev": "concurrently \"nuxt dev\" \"pnpm gql --watch\"",
+    "generate": "nuxt generate",
+    "postinstall": "nuxt prepare",
+    "lint:fix": "eslint --fix .",
+    "preview": "nuxt preview",
+    "gql": "graphql-codegen"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "@tanstack/vue-query": "^5.92.9",
+    "@teamnovu/vue-cloudinary-image": "^4.0.1",
+    "@teamnovu/vue-cloudinary-image-statamic": "^1.1.0",
+    "@urql/core": "^6.0.1",
+    "@urql/exchange-persisted": "^5.0.1",
+    "@vee-validate/i18n": "^4.15.1",
+    "@vee-validate/rules": "^4.15.1",
+    "@vueuse/integrations": "^14.2.1",
+    "@vueuse/nuxt": "^14.2.1",
+    "@vueuse/router": "^14.2.1",
+    "dotenv": "^17.3.1",
+    "graphql": "^16.13.0",
+    "graphql-config": "^5.1.5",
+    "nuxt-security": "^2.5.1",
+    "vee-validate": "^4.15.1"
+  },
+  "devDependencies": {
+    "@0no-co/graphqlsp": "^1.15.2",
+    "@graphql-codegen/cli": "^6.1.2",
+    "@graphql-codegen/client-preset": "^5.2.3",
+    "@graphql-codegen/schema-ast": "^5.0.0",
+    "@nuxt/devtools": "^3.2.2",
+    "@nuxt/eslint": "^1.15.2",
+    "@nuxtjs/i18n": "^10.2.3",
+    "@parcel/watcher": "^2.5.6",
+    "@stylistic/eslint-plugin": "^5.9.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/node": "^24.11.0",
+    "@vitejs/plugin-legacy": "^7.2.1",
+    "concurrently": "^9.2.1",
+    "eslint": "^10.0.2",
+    "eslint-plugin-better-tailwindcss": "^4.3.1",
+    "eslint-plugin-vue": "^10.8.0",
+    "eslint-plugin-vuejs-accessibility": "^2.5.0",
+    "nuxt": "^4.3.1",
+    "tailwindcss": "^4.2.1",
+    "typescript": "^5.9.3"
+  },
+  "type": "module",
+  "packageManager": "pnpm@10.10.0",
+  "engines": {
+    "node": "24",
+    "pnpm": "10"
+  }
+}

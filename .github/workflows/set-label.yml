@@ -1,0 +1,39 @@
+name: Auto-label PRs
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  label_pr:
+    name: Add "manual-pull" label
+    if: github.actor != 'dependabot[bot]'
+    runs-on: self-hosted
+    container:
+      image: node:24
+
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Add "manual-pull" label to PR
+        uses: actions/github-script@v8
+        with:
+          script: |
+            await github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ["notify-slack"]
+            });
+      - name: Add comment to trigger notification
+        uses: actions/github-script@v8
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: 'notify slack'
+            })

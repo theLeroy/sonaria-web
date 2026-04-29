@@ -1,0 +1,11 @@
+html {
+    font-size: clamp(16px, 0.8vw, 28px);
+
+    /* With this you can be sure that the font is here. Remove if project does not provide every font weight */
+    font-synthesis: none;
+
+    /* Ensures that the content does not jump when the scrollbar is hidden */
+    scrollbar-gutter: stable;
+
+    @apply antialiased text-pretty;
+}

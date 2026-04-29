@@ -1,0 +1,14 @@
+@theme {
+  --color-*: initial;
+
+  --color-black: #000000;
+  --color-white: #FFFFFF;
+
+  /* Add your colors here */
+  --color-focus: rgb(91, 184, 114);
+}
+
+/* When defining theme variables that reference other variables, use the inline option */
+@theme inline {
+
+}

@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+
+@import './_fonts.css';
+@import './_base.css';
+@import './_utilities.css';
+@import './_colors.css';
+@import './_spacing.css';
+
+@plugin "@tailwindcss/typography";
+
+
