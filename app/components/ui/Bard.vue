@@ -3,7 +3,7 @@
 <template>
   <div
     ref="element"
-    class="style-bard"
+    class="prose"
     v-html="html"
   />
 </template>
@@ -21,7 +21,7 @@ useNuxtLinks(element)
 <style>
 @reference "~/assets/css/main.css";
 
-.style-bard {
+.prose {
 
   p {
     @apply text-pretty;

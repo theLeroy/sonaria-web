@@ -1,9 +1,3 @@
-/**
- * used in plugins/_registerVueCloudinaryImage.ts
- */
-declare module '@teamnovu/vue-cloudinary-image';
-declare module '@teamnovu/vue-cloudinary-image-statamic';
-
 export type Asset = {
   id: string
   alt_de: string | null

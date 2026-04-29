@@ -45,7 +45,10 @@ export default defineNuxtConfig({
       }),
     ],
     server: {
-      allowedHosts: ['.novu.io', process.env.APP_URL!.split('://')[1]],
+      allowedHosts: [
+        '.novu.io',
+        ...(process.env.APP_URL ? [process.env.APP_URL.split('://')[1] ?? ''] : []),
+      ].filter((h): h is string => Boolean(h)),
     },
   },
 
@@ -54,11 +57,6 @@ export default defineNuxtConfig({
       SITE_NAME: process.env.SITE_NAME,
 
       APP_URL: process.env.APP_URL,
-
-      BACKEND_URL: process.env.BACKEND_URL,
-      API_URL: process.env.API_URL,
-      GQL_HOST: process.env.GQL_HOST,
-      GQL_APQ_ENABLED: process.env.GQL_APQ_ENABLED === 'true',
 
       CLOUDINARY_BASE_URL: process.env.CLOUDINARY_BASE_URL,
     },
@@ -72,9 +70,9 @@ export default defineNuxtConfig({
   i18n: {
     baseUrl: process.env.APP_URL,
     defaultLocale: 'de',
-    langDir: 'lang/',
     strategy: 'prefix_except_default',
     detectBrowserLanguage: false,
+    vueI18n: './i18n.config.ts',
     // detectBrowserLanguage: {
     //   useCookie: true,
     //   cookieKey: 'i18n_redirected',
@@ -85,13 +83,11 @@ export default defineNuxtConfig({
         code: 'de',
         name: 'Deutsch',
         language: 'de-CH', // this is your html lang
-        file: 'cms.ts',
       },
       {
         code: 'fr',
         name: 'Français',
         language: 'fr-CH',
-        file: 'cms.ts',
       },
     ],
   },
@@ -103,7 +99,7 @@ export default defineNuxtConfig({
         'base-uri': ['\'none\''],
         'font-src': ['\'self\'', 'https:', 'data:'],
         'form-action': ['\'self\'', 'https:'],
-        'frame-ancestors': ['\'self\'', process.env.BACKEND_URL || ''],
+        'frame-ancestors': ['\'self\''],
         'connect-src': ['\'self\'', 'https:', 'data:', 'blob:'],
         'img-src': ['\'self\'', 'https:', 'data:', 'blob:'],
         'object-src': ['\'self\'', 'https:', 'data:'],
@@ -177,12 +173,5 @@ export default defineNuxtConfig({
     ],
   },
 
-  routeRules: {
-    '/cms': {
-      redirect: `${process.env.BACKEND_URL}/cp`,
-    },
-    '/sitemap.xml': {
-      redirect: `${process.env.BACKEND_URL}/sitemap.xml`,
-    },
-  },
+  routeRules: {},
 })

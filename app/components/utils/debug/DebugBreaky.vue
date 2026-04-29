@@ -8,9 +8,8 @@
       :class="isDragging ? `transition-none` : `transition-all`"
       aria-label="hidden"
       class="
-        group animate-fade-in fixed z-50 flex w-max cursor-grab gap-0
-        rounded-full bg-[#111] px-3 py-1.5 text-[0.8rem] text-[#F5F5F5]
-        duration-300 select-none
+        group fixed z-50 flex w-max cursor-grab gap-0 rounded-full bg-[#111]
+        px-3 py-1.5 text-[0.8rem] text-[#F5F5F5] duration-300 select-none
         open:gap-2
       "
       :open="isOpen || isDragging || isHovering ? true : undefined"
@@ -31,7 +30,7 @@
         class="
           inline
           group-open:inline
-          xs:!hidden
+          xs:hidden!
         "
       >
         -
@@ -164,18 +163,4 @@ function toNumber(value: string) {
 </script>
 
 <style scoped>
-.animate-fade-in {
-  animation: fade-in 300ms ease-in-out;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
 </style>

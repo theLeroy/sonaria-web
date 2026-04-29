@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  alternates: Array<{
+  alternates?: Array<{
     locale: string
     url: string
   }>
@@ -29,6 +29,8 @@ const { locales } = useI18n()
 const currentLocale = defineModel<string>()
 
 const hasAlternate = (localeCode: string) => {
+  if (!props.alternates?.length) return true
+
   // alternates from Statamic come in the form of de-CH (see sites.yaml)
   // nuxt-i18n locales are set as de (see nuxt.config.ts)
   return props.alternates.some((a) => {

@@ -3,13 +3,13 @@
     class="grid min-h-screen grid-rows-[auto_1fr_auto]"
   >
     <TabNavigation />
-    <CmsNavigationMain />
+    <AppNavigationMain />
 
     <main class="mt-navbar-height">
       <slot />
     </main>
 
-    <CmsNavigationFooter />
+    <AppNavigationFooter />
   </div>
 </template>
 

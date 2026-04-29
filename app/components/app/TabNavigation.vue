@@ -2,7 +2,7 @@
 <template>
   <nav
     class="
-      fixed -top-full left-[10%] z-[1000] rounded-b-lg border-2 border-[#C5C1B4]
+      fixed -top-full left-[10%] z-1000 rounded-b-lg border-2 border-[#C5C1B4]
       bg-white px-8 pt-6 pb-5 shadow-lg transition-all
       md:focus-within:-top-1
     "
@@ -13,10 +13,10 @@
         <button
           tabindex="1"
           class="
-            focus-visible:ring-focus focus-visible:ring-2
-            focus-visible:outline-none
             px-2
             hover:underline
+            focus-visible:ring-2 focus-visible:ring-focus
+            focus-visible:outline-none
           "
           type="button"
           @click="jumpToNavigation"
@@ -28,10 +28,10 @@
         <button
           tabindex="1"
           class="
-            focus-visible:ring-focus focus-visible:ring-2
-            focus-visible:outline-none
             px-2
             hover:underline
+            focus-visible:ring-2 focus-visible:ring-focus
+            focus-visible:outline-none
           "
           type="button"
           @click="jumpToContent"
@@ -46,3 +46,4 @@
 <script setup lang="ts">
 const { jumpToNavigation, jumpToContent } = useTabHelper()
 </script>
+

@@ -10,11 +10,6 @@
       "@nuxt/types",
       "@nuxt/i18n",
     ],
-    "plugins": [
-      {
-        "name": "@0no-co/graphqlsp",
-        "schema": "schema.graphql",
-      }
-    ]
+    "plugins": []
   }
 }

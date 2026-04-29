@@ -1,14 +1,12 @@
 {
-  // https://the-guild.dev/graphql/codegen/docs/guides/react-query#setting-up-graphql-code-generator
   "typescript.tsdk": "node_modules/typescript/lib",
   "typescript.enablePromptUseWorkspaceTsdk": true,
 
-  // gql language feature support
   "[vue]": {
     "editor.suggest.showSnippets": false
   },
 
   "i18n-ally.localesPaths": [
-    "lang"
+    "i18n/lang"
   ],
 }
