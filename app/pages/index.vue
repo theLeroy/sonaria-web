@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <!-- Desktop image -->
-    <NuxtImg
+    <HeatDistortImage
       src="/files/sonaria_website_querformat.png"
       alt="Sonaria background image"
       class="
@@ -10,7 +10,7 @@
       "
     />
     <!-- MOBILE IMAGE -->
-    <NuxtImg
+    <HeatDistortImage
       src="/files/sonaria_website_hochformat.png"
       alt="Sonaria background image"
       class="
