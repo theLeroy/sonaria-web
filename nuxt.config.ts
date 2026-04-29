@@ -58,7 +58,6 @@ export default defineNuxtConfig({
 
       APP_URL: process.env.APP_URL,
 
-      CLOUDINARY_BASE_URL: process.env.CLOUDINARY_BASE_URL,
     },
   },
 
