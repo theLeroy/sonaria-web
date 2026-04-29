@@ -148,6 +148,13 @@ void main() {
   vec2 texel = 1.0 / max(uTextureSize, vec2(1.0));
 
   vec4 col = blur9(uTexture, uv2, texel, uBlur);
+
+  // Prevent dark fringes / black background when source has transparency.
+  // (Blur mixes RGB from fully transparent pixels, which is often black.)
+  if (col.a > 0.0) {
+    col.rgb /= col.a;
+  }
+
   gl_FragColor = col;
 }
 `
@@ -216,8 +223,10 @@ const start = async () => {
     alpha: true,
     antialias: true,
     powerPreference: 'high-performance',
+    premultipliedAlpha: false,
   })
   renderer.setClearColor(0x000000, 0)
+  renderer.setClearAlpha(0)
 
   const scene = new Scene()
   const camera = new Camera()

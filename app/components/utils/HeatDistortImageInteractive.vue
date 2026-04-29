@@ -5,7 +5,7 @@
   >
     <canvas
       ref="canvasEl"
-      class="absolute inset-0 h-full w-full"
+      class="absolute inset-0 size-full"
     />
 
     <!-- Fallback / SEO: keep an <img> in the DOM (hidden visually) -->
@@ -13,7 +13,9 @@
       v-if="resolvedSrc"
       :src="resolvedSrc"
       :alt="alt"
-      class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0"
+      class="
+        pointer-events-none absolute inset-0 size-full object-cover opacity-0
+      "
       decoding="async"
       loading="lazy"
     >
@@ -21,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Texture } from 'three'
 import {
   Camera,
   Clock,
@@ -28,7 +31,6 @@ import {
   PlaneGeometry,
   Scene,
   ShaderMaterial,
-  Texture,
   TextureLoader,
   Vector2,
   WebGLRenderer,
@@ -164,6 +166,12 @@ void main() {
   vec2 texel = 1.0 / max(uTextureSize, vec2(1.0));
 
   vec4 col = blur9(uTexture, uv2, texel, uBlur + 0.35 * pointerField);
+
+  // Prevent dark fringes / black background when source has transparency.
+  if (col.a > 0.0) {
+    col.rgb /= col.a;
+  }
+
   gl_FragColor = col;
 }
 `
@@ -193,10 +201,19 @@ const state = shallowRef<{
   time: number
 } | null>(null)
 
-const pointer = shallowRef<{ x: number; y: number }>({ x: 0.5, y: 0.5 })
+const pointer = shallowRef<{
+  x: number
+  y: number
+}>({
+  x: 0.5,
+  y: 0.5,
+})
 const pointerStrength = shallowRef(0)
 const lastPointerAt = shallowRef<number | null>(null)
-const lastPointer = shallowRef<{ x: number; y: number } | null>(null)
+const lastPointer = shallowRef<{
+  x: number
+  y: number
+} | null>(null)
 
 const getSize = () => {
   const el = rootEl.value
@@ -204,10 +221,16 @@ const getSize = () => {
   const { width, height } = el.getBoundingClientRect()
   const w = Math.max(1, Math.floor(width))
   const h = Math.max(1, Math.floor(height))
-  return { w, h }
+  return {
+    w,
+    h,
+  }
 }
 
-const setRendererSize = (next: { w: number; h: number }) => {
+const setRendererSize = (next: {
+  w: number
+  h: number
+}) => {
   const s = state.value
   if (!s) return
 
@@ -240,8 +263,10 @@ const start = async () => {
     alpha: true,
     antialias: true,
     powerPreference: 'high-performance',
+    premultipliedAlpha: false,
   })
   renderer.setClearColor(0x000000, 0)
+  renderer.setClearAlpha(0)
 
   const scene = new Scene()
   const camera = new Camera()

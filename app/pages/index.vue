@@ -2,12 +2,15 @@
   <div class="relative">
     <!-- TEXT -->
     <div
-      class="absolute inset-0 z-10 flex h-screen items-center justify-center"
+      class="
+        pointer-events-none absolute inset-0 z-10 flex h-screen items-center
+        justify-center
+      "
     >
       <HeatDistortImageInteractive
         src="/files/sonaria_festival_text.png"
         alt="Sonaria background image"
-        class="h-48 w-96"
+        class="pointer-events-auto h-48 w-96"
       />
     </div>
     <!-- Desktop image -->
