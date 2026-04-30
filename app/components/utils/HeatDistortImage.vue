@@ -51,7 +51,7 @@ type Props = {
 
 const props = withDefaults(defineProps<Props>(), {
   alt: '',
-  intensity: 0.35,
+  intensity: 0.65,
   blur: 0.25,
 })
 
