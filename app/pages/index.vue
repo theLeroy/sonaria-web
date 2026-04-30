@@ -8,31 +8,48 @@
       "
     >
       <HeatDistortImageInteractive
+        v-if="!isTouchDevice"
+        src="/files/sonaria_festival_text.png"
+        alt="Sonaria background image"
+        class="pointer-events-auto h-48 w-96"
+      />
+      <HeatDistortImage
+        v-else
         src="/files/sonaria_festival_text.png"
         alt="Sonaria background image"
         class="pointer-events-auto h-48 w-96"
       />
     </div>
-    <!-- Desktop image -->
-    <HeatDistortImageInteractive
-      src="/files/sonaria_website_querformat.png"
-      alt="Sonaria background image"
-      class="
-        absolute inset-0 hidden h-screen w-full object-cover
-        lg:block
-      "
-    />
-    <!-- MOBILE IMAGE -->
-    <HeatDistortImageInteractive
-      src="/files/sonaria_website_hochformat.png"
-      alt="Sonaria background image"
-      class="
-        absolute inset-0 h-screen w-full object-cover
-        lg:hidden
-      "
-    />
+    <!-- landscape image -->
+    <template v-if="isLandscape">
+      <HeatDistortImageInteractive
+        v-if="!isTouchDevice"
+        src="/files/sonaria_website_querformat.png"
+        alt="Sonaria background image"
+        class="absolute inset-0 hidden h-screen w-full object-cover"
+      />
+      <HeatDistortImage
+        src="/files/sonaria_website_querformat.png"
+        alt="Sonaria background image"
+        class="absolute inset-0 hidden h-screen w-full object-cover"
+      />
+    </template>
+    <template v-else>
+      <HeatDistortImageInteractive
+        v-if="!isTouchDevice"
+        src="/files/sonaria_website_hochformat.png"
+        alt="Sonaria background image"
+        class="absolute inset-0 h-screen w-full object-cover"
+      />
+      <HeatDistortImage
+        v-else
+        src="/files/sonaria_website_hochformat.png"
+        alt="Sonaria background image"
+        class="absolute inset-0 h-screen w-full object-cover"
+      />
+    </template>
 
-    <div class="max-w-2xl space-y-4">
+    <!-- <div class="max-w-2xl space-y-4">
       <Container class="py-10">
         <h1 class="text-3xl font-semibold">
           {{ siteName }}
@@ -41,7 +58,7 @@
           This build runs **without any backend/CMS**. Content and navigation are local-only.
         </p>
       </Container>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -52,6 +69,13 @@ const siteName = computed(() => config.public.SITE_NAME ?? 'Site')
 useSeoMeta({
   title: siteName.value,
   description: 'Local-only Nuxt build (no backend).',
+})
+
+const isTouchDevice = useMediaQuery('(pointer: coarse)')
+const isLandscape = useMediaQuery('(orientation: landscape)')
+
+watch(isTouchDevice, (newVal) => {
+  console.log('isTouchDevice', newVal)
 })
 </script>
 

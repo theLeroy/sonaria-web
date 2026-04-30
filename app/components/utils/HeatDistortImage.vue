@@ -5,7 +5,7 @@
   >
     <canvas
       ref="canvasEl"
-      class="absolute inset-0 h-full w-full"
+      class="absolute inset-0 size-full"
     />
 
     <!-- Fallback / SEO: keep an <img> in the DOM (hidden visually) -->
@@ -13,7 +13,9 @@
       v-if="resolvedSrc"
       :src="resolvedSrc"
       :alt="alt"
-      class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-0"
+      class="
+        pointer-events-none absolute inset-0 size-full object-cover opacity-0
+      "
       decoding="async"
       loading="lazy"
     >
@@ -21,6 +23,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Texture } from 'three'
 import {
   Camera,
   Clock,
@@ -28,7 +31,6 @@ import {
   PlaneGeometry,
   Scene,
   ShaderMaterial,
-  Texture,
   TextureLoader,
   Vector2,
   WebGLRenderer,
@@ -187,10 +189,16 @@ const getSize = () => {
   const { width, height } = el.getBoundingClientRect()
   const w = Math.max(1, Math.floor(width))
   const h = Math.max(1, Math.floor(height))
-  return { w, h }
+  return {
+    w,
+    h,
+  }
 }
 
-const setRendererSize = (next: { w: number; h: number }) => {
+const setRendererSize = (next: {
+  w: number
+  h: number
+}) => {
   const s = state.value
   if (!s) return
 
