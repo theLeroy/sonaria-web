@@ -454,7 +454,9 @@ const updatePointerFromEvent = (event: PointerEvent) => {
 
   const rect = el.getBoundingClientRect()
   const x = rect.width > 0 ? (event.clientX - rect.left) / rect.width : 0.5
-  const y = rect.height > 0 ? (event.clientY - rect.top) / rect.height : 0.5
+  // DOM coords are top->bottom, shader UVs are bottom->top.
+  const yRaw = rect.height > 0 ? (event.clientY - rect.top) / rect.height : 0.5
+  const y = 1 - yRaw
 
   const next = {
     x: clamp01(x),
