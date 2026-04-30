@@ -29,6 +29,7 @@
         class="absolute inset-0 hidden h-screen w-full object-cover"
       />
       <HeatDistortImage
+        v-else
         src="/files/sonaria_website_querformat.png"
         alt="Sonaria background image"
         class="absolute inset-0 hidden h-screen w-full object-cover"

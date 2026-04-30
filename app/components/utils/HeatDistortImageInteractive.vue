@@ -27,8 +27,12 @@ import type { Texture } from 'three'
 import {
   Camera,
   Clock,
+  LinearFilter,
   Mesh,
+  NoToneMapping,
+  NoColorSpace,
   PlaneGeometry,
+  SRGBColorSpace,
   Scene,
   ShaderMaterial,
   TextureLoader,
@@ -99,6 +103,23 @@ uniform float uPointerStrength; // 0..1
 
 varying vec2 vUv;
 
+vec3 srgbToLinear(vec3 c) {
+  // sRGB EOTF (matches Three.js implementation)
+  bvec3 cutoff = lessThanEqual(c, vec3(0.04045));
+  vec3 low = c * 0.0773993808;
+  vec3 high = pow(c * 0.9478672986 + vec3(0.0521327014), vec3(2.4));
+  return mix(high, low, vec3(cutoff));
+}
+
+vec3 linearToSrgb(vec3 c) {
+  // sRGB OETF (matches Three.js implementation)
+  c = max(c, 0.0);
+  bvec3 cutoff = lessThanEqual(c, vec3(0.0031308));
+  vec3 low = c * 12.92;
+  vec3 high = pow(c, vec3(0.41666)) * 1.055 - vec3(0.055);
+  return mix(high, low, vec3(cutoff));
+}
+
 float hash(vec2 p) {
   return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453123);
 }
@@ -135,16 +156,39 @@ vec2 coverUv(vec2 uv, vec2 container, vec2 tex) {
 vec4 blur9(sampler2D tex, vec2 uv, vec2 texel, float strength) {
   vec2 o = texel * (1.0 + 3.0 * strength);
 
-  vec4 c = texture2D(tex, uv) * 4.0;
-  c += texture2D(tex, uv + vec2(-o.x, 0.0));
-  c += texture2D(tex, uv + vec2(o.x, 0.0));
-  c += texture2D(tex, uv + vec2(0.0, -o.y));
-  c += texture2D(tex, uv + vec2(0.0, o.y));
-  c += texture2D(tex, uv + vec2(-o.x, -o.y));
-  c += texture2D(tex, uv + vec2(o.x, -o.y));
-  c += texture2D(tex, uv + vec2(-o.x, o.y));
-  c += texture2D(tex, uv + vec2(o.x, o.y));
-  return c / 12.0;
+  vec4 s0 = texture2D(tex, uv);
+  vec4 s1 = texture2D(tex, uv + vec2(-o.x, 0.0));
+  vec4 s2 = texture2D(tex, uv + vec2(o.x, 0.0));
+  vec4 s3 = texture2D(tex, uv + vec2(0.0, -o.y));
+  vec4 s4 = texture2D(tex, uv + vec2(0.0, o.y));
+  vec4 s5 = texture2D(tex, uv + vec2(-o.x, -o.y));
+  vec4 s6 = texture2D(tex, uv + vec2(o.x, -o.y));
+  vec4 s7 = texture2D(tex, uv + vec2(-o.x, o.y));
+  vec4 s8 = texture2D(tex, uv + vec2(o.x, o.y));
+
+  vec3 rgb =
+    srgbToLinear(s0.rgb) * 4.0 +
+    srgbToLinear(s1.rgb) +
+    srgbToLinear(s2.rgb) +
+    srgbToLinear(s3.rgb) +
+    srgbToLinear(s4.rgb) +
+    srgbToLinear(s5.rgb) +
+    srgbToLinear(s6.rgb) +
+    srgbToLinear(s7.rgb) +
+    srgbToLinear(s8.rgb);
+
+  float a =
+    s0.a * 4.0 +
+    s1.a +
+    s2.a +
+    s3.a +
+    s4.a +
+    s5.a +
+    s6.a +
+    s7.a +
+    s8.a;
+
+  return vec4(rgb / 12.0, a / 12.0);
 }
 
 void main() {
@@ -178,6 +222,7 @@ void main() {
     col.rgb /= col.a;
   }
 
+  col.rgb = linearToSrgb(col.rgb);
   gl_FragColor = col;
 }
 `
@@ -324,6 +369,8 @@ const start = async () => {
   })
   renderer.setClearColor(0x000000, 0)
   renderer.setClearAlpha(0)
+  renderer.outputColorSpace = SRGBColorSpace
+  renderer.toneMapping = NoToneMapping
 
   const scene = new Scene()
   const camera = new Camera()
@@ -340,7 +387,13 @@ const start = async () => {
       },
     )
   })
-  texture.colorSpace = 'srgb'
+  // Keep the GPU texture in linear space and do sRGB decode/encode in shader,
+  // otherwise hardware sRGB decode can lead to double-decoding and dark output.
+  texture.colorSpace = NoColorSpace
+  texture.generateMipmaps = false
+  texture.minFilter = LinearFilter
+  texture.magFilter = LinearFilter
+  texture.needsUpdate = true
 
   const geometry = new PlaneGeometry(2, 2, 1, 1)
 
@@ -361,6 +414,7 @@ const start = async () => {
     transparent: true,
     uniforms,
   })
+  material.toneMapped = false
 
   const mesh = new Mesh(geometry, material)
   scene.add(mesh)
