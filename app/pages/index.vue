@@ -3,22 +3,20 @@
     <!-- TEXT -->
     <div
       class="
-        pointer-events-none absolute inset-0 z-10 flex h-screen items-center
-        justify-center
+        pointer-events-none absolute inset-0 z-10 flex h-screen flex-col
+        items-center justify-center
       "
     >
-      <HeatDistortImageInteractive
-        v-if="!isTouchDevice"
-        src="/files/sonaria_festival_text.png"
-        alt="Sonaria background image"
-        class="pointer-events-auto h-48 w-96"
-      />
       <HeatDistortImage
-        v-else
         src="/files/sonaria_festival_text.png"
         alt="Sonaria background image"
-        class="pointer-events-auto h-48 w-96"
+        class="pointer-events-none h-48 w-96 max-w-screen"
       />
+      <div class="flex items-center justify-center">
+        <HeatDistortImage>
+          <Button>asd</Button>
+        </HeatDistortImage>
+      </div>
     </div>
     <!-- landscape image -->
     <template v-if="isLandscape">
@@ -74,9 +72,5 @@ useSeoMeta({
 
 const isTouchDevice = useMediaQuery('(pointer: coarse)')
 const isLandscape = useMediaQuery('(orientation: landscape)')
-
-watch(isTouchDevice, (newVal) => {
-  console.log('isTouchDevice', newVal)
-})
 </script>
 

@@ -1,6 +1,7 @@
 <template>
   <NuxtLink
     v-if="to"
+    class="text-shadow-xl rounded-full px-4 text-white text-shadow-current"
     :to="to"
     v-bind="$attrs"
     :target="target ? target : isExternalUrl(to as string) ? '_blank' : '_self'"
@@ -9,6 +10,7 @@
   </NuxtLink>
   <button
     v-else
+    class="text-shadow-xl rounded-full px-4 text-white text-shadow-current"
     v-bind="$attrs"
     type="button"
   >
