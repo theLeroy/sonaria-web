@@ -40,6 +40,10 @@ type Props = {
   src: string
   alt?: string
   /**
+   * When false, pauses the animation loop (renders a single static frame).
+   */
+  play?: boolean
+  /**
    * 0..1 — baseline heat haze strength (when pointer is idle).
    */
   intensity?: number
@@ -55,6 +59,7 @@ type Props = {
 
 const props = withDefaults(defineProps<Props>(), {
   alt: '',
+  play: true,
   intensity: 0.35,
   blur: 0.25,
   pointerBoost: 0.8,
@@ -76,6 +81,7 @@ void main() {
   vUv = uv;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
+
 `
 
 // Heat distortion inspired by https://github.com/SaijoGeorge/HeatDistortionEffect
@@ -252,6 +258,57 @@ const dispose = () => {
   state.value = null
 }
 
+const renderOnce = () => {
+  const current = state.value
+  if (!current) return
+
+  // decay pointer strength smoothly
+  const decay = isReducedMotion.value ? 0.22 : 0.08
+  pointerStrength.value = Math.max(0, pointerStrength.value - decay)
+
+  const baseIntensity = clamp01(props.intensity)
+  const baseBlur = clamp01(props.blur)
+  const boost = clamp01(props.pointerBoost)
+
+  const boostedStrength = clamp01(pointerStrength.value * boost)
+  current.uniforms.uPointerStrength.value = boostedStrength
+  current.uniforms.uPointer.value.set(pointer.value.x, pointer.value.y)
+  current.uniforms.uIntensity.value = baseIntensity
+  current.uniforms.uBlur.value = baseBlur
+
+  // advance time continuously while playing; pointer movement boosts speed
+  if (!isReducedMotion.value) {
+    const dt = current.clock.getDelta()
+    const baseSpeed = 0.22
+    const boostedSpeed = 1.25 * boostedStrength
+    current.time = current.time + dt * (baseSpeed + boostedSpeed)
+  }
+  current.uniforms.uTime.value = current.time
+
+  current.renderer.render(current.scene, current.camera)
+}
+
+const ensureRaf = () => {
+  const current = state.value
+  if (!current) return
+  if (!props.play) return
+  if (current.rafId) return
+
+  const loop = () => {
+    const s = state.value
+    if (!s) return
+    if (!props.play) {
+      s.rafId = 0
+      return
+    }
+
+    renderOnce()
+    s.rafId = requestAnimationFrame(loop)
+  }
+
+  current.rafId = requestAnimationFrame(loop)
+}
+
 const start = async () => {
   if (!import.meta.client) return
   if (!rootEl.value || !canvasEl.value) return
@@ -332,35 +389,9 @@ const start = async () => {
   const size = getSize()
   if (size) setRendererSize(size)
 
-  const renderFrame = () => {
-    const current = state.value
-    if (!current) return
-
-    // decay pointer strength smoothly
-    const decay = isReducedMotion.value ? 0.22 : 0.08
-    pointerStrength.value = Math.max(0, pointerStrength.value - decay)
-
-    const baseIntensity = clamp01(props.intensity)
-    const baseBlur = clamp01(props.blur)
-    const boost = clamp01(props.pointerBoost)
-
-    const boostedStrength = clamp01(pointerStrength.value * boost)
-    current.uniforms.uPointerStrength.value = boostedStrength
-    current.uniforms.uPointer.value.set(pointer.value.x, pointer.value.y)
-    current.uniforms.uIntensity.value = baseIntensity
-    current.uniforms.uBlur.value = baseBlur
-
-    // advance time mainly when pointer is active
-    const dt = current.clock.getDelta()
-    const speedFactor = isReducedMotion.value ? 0 : (0.15 + 1.35 * boostedStrength)
-    current.time = current.time + dt * speedFactor
-    current.uniforms.uTime.value = current.time
-
-    current.renderer.render(current.scene, current.camera)
-    current.rafId = requestAnimationFrame(renderFrame)
-  }
-
-  renderFrame()
+  // render at least once, then start the loop if enabled
+  renderOnce()
+  ensureRaf()
 }
 
 const updatePointerFromEvent = (event: PointerEvent) => {
@@ -397,6 +428,9 @@ const updatePointerFromEvent = (event: PointerEvent) => {
   // scale tuned for typical pointer rates
   const boost = clamp01(speed * 90)
   pointerStrength.value = clamp01(pointerStrength.value + 0.25 + 0.75 * boost)
+
+  // if paused, still allow a single "boosted" render
+  if (!props.play) renderOnce()
 }
 
 const onPointerLeave = () => {
@@ -421,6 +455,25 @@ watch(resolvedSrc, () => {
   dispose()
   void start()
 })
+
+watch(
+  () => props.play,
+  (next) => {
+    const s = state.value
+    if (!s) return
+
+    if (!next) {
+      cancelAnimationFrame(s.rafId)
+      s.rafId = 0
+      renderOnce()
+      return
+    }
+
+    // reset delta accumulation so resume doesn't "jump"
+    s.clock.getDelta()
+    ensureRaf()
+  },
+)
 
 onBeforeUnmount(() => {
   dispose()
