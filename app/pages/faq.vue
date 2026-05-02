@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <!-- landscape image -->
-    <div class="absolute inset-0 h-screen w-full object-cover">
+    <div class="fixed inset-0 h-screen w-full object-cover">
       <template v-if="isLandscape">
         <HeatDistortImage
           src="/files/sonaria_website_querformat.png"
@@ -25,10 +25,10 @@
       "
       aria-labelledby="faq-heading"
     >
-      <div class="mx-auto flex max-w-2xl flex-col gap-12">
+      <div class="mx-auto flex max-w-md flex-col gap-12">
         <header class="text-center">
           <p class="font-mono text-xs tracking-[0.35em] text-white/50 uppercase">
-            Sonaria&nbsp;🚀
+            Sonaria&nbsp;
           </p>
           <h1
             id="faq-heading"
@@ -54,24 +54,26 @@
             v-for="(item, index) in faqItems"
             :id="faqAnchorId(index)"
             :key="index"
-            class="group"
           >
             <details
               class="
-                overflow-hidden rounded-2xl border border-white/15 bg-black/25
-                shadow-[inset_0_1px_0_0_rgb(255_255_255/0.08)] backdrop-blur-md
-                backdrop-saturate-150 transition-[border-color,box-shadow]
-                transition-colors
+                group rounded-2xl border border-white/15 bg-black/25
+                shadow-[inset_0_1px_0_0_rgb(255_255_255/0.08)]
+                ring-offset-transparent backdrop-blur-md backdrop-saturate-150
+                transition-[border-color,box-shadow,background-color]
                 open:border-white/25 open:bg-black/45
                 open:shadow-[inset_0_1px_0_0_rgb(255_255_255/0.12)]
                 hover:bg-black/35
+                focus-visible:ring-2 focus-visible:ring-focus
+                focus-visible:ring-offset-4
+                motion-reduce:transition-none
               "
             >
               <summary
                 class="
                   flex cursor-pointer list-none items-center gap-4 px-5 py-4
-                  text-left ring-focus/40 outline-none select-none
-                  focus-visible:ring-2
+                  text-left outline-none select-none
+                  focus-visible:ring-2 focus-visible:ring-offset-4
                   [&::-webkit-details-marker]:hidden
                 "
               >
@@ -94,13 +96,32 @@
               </summary>
               <div
                 class="
-                  border-t border-white/10 px-5 pt-4 pb-5 text-sm/relaxed
-                  text-white/85
+                  grid grid-rows-[0fr] overflow-hidden
+                  group-open:grid-rows-[1fr]
+                  motion-safe:transition-[grid-template-rows]
+                  motion-safe:duration-300 motion-safe:ease-out
+                  motion-reduce:transition-none
                 "
               >
-                <p class="pl-11 text-pretty">
-                  {{ item.text }}
-                </p>
+                <div
+                  class="
+                    min-h-0 border-t border-white/10 px-5 pt-4 pb-5
+                    text-sm/relaxed text-white/85 opacity-95
+                    group-open:opacity-100
+                    motion-safe:transition-opacity motion-safe:delay-75
+                    motion-safe:duration-300 motion-safe:ease-out
+                    motion-reduce:transition-none motion-reduce:delay-0
+                  "
+                >
+                  <p
+                    class="
+                      text-pretty
+                      md:pl-13
+                    "
+                  >
+                    {{ item.text }}
+                  </p>
+                </div>
               </div>
             </details>
           </li>
@@ -194,14 +215,6 @@ const faqItems: readonly FaqItem[] = [
   },
 ]
 
-function faqHeadline(item: FaqItem): string {
-  if (item.interleaveEmojiInTopic) {
-    return [...item.topic].join(item.emoji)
-  }
-  const { emoji } = item
-  return emoji === '' ? item.topic : `${emoji}\u0020${item.topic}`
-}
-
 function faqSlug(slugSource: string): string {
   return slugSource
     .toLowerCase()
@@ -224,3 +237,15 @@ useSeoMeta({
 
 const isLandscape = useMediaQuery('(orientation: landscape)')
 </script>
+<style>
+/* This won't work yet */
+details::details-content {
+  overflow: hidden;
+  height: 0;
+  transition: height 0.3s;
+}
+
+details[open]::details-content {
+  height: auto;
+}
+</style>

@@ -9,3 +9,7 @@ html {
 
     @apply antialiased text-pretty;
 }
+
+:root {
+  interpolate-size: allow-keywords;
+}

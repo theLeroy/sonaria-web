@@ -3,7 +3,7 @@
     <!-- TEXT -->
     <div
       class="
-        pointer-events-none absolute inset-0 z-10 flex h-screen flex-col
+        pointer-events-none fixed inset-0 z-10 flex h-screen flex-col
         items-center justify-center
       "
     >
@@ -12,7 +12,9 @@
         alt="Sonaria background image"
         class="pointer-events-none h-48 w-96 max-w-screen"
       />
-      <div class="pointer-events-auto z-50 flex items-center justify-center">
+      <div
+        class="pointer-events-auto z-50 flex items-center justify-center gap-4"
+      >
         <Button to="/faq">
           FAQ
         </Button>
