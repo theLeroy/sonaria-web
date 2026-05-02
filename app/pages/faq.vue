@@ -46,7 +46,17 @@
               mx-auto mt-4 max-w-md text-sm/relaxed text-pretty text-white/70
             "
           >
-            Short answers below — tap a topic to reveal the full reply.
+            Antworten auf einen Tap — mehr Infos auch auf{' '}
+            <a
+              href="https://sonaria.ch"
+              class="
+                text-white underline underline-offset-4 ring-focus/40
+                outline-none
+                focus-visible:ring-2
+              "
+              target="_blank"
+              rel="noopener noreferrer"
+            >sonaria.ch</a>.
           </p>
           <div
             class="
@@ -123,30 +133,69 @@ type FaqItem = Readonly<{
 const config = useRuntimeConfig()
 const siteName = computed(() => config.public.SITE_NAME ?? 'Site')
 
-/** FAQ entries — edit topics and answers here */
+/** FAQ — Inhalte aus Festival-Infos (topic + Antworttext) */
 const faqItems: readonly FaqItem[] = [
   {
-    topic: 'When and where is the festival?',
-    text: 'Programming and exact dates are announced on our channels closer to the event. Subscribe or check back — we will include gate times and how to reach the site.',
+    topic: 'Was ist Sonaria Festival?',
+    text:
+      'Aus dem Zusammenschluss verschiedener Kollektive und Freund:innen entsteht diesen Sommer ein neues Festival nahe Bern: drei Tage unter freiem Himmel in einer Parallelwelt, die den Alltag vergessen lässt. Es gibt drei Bühnen — zwei mit elektronischer Musik und eine mit Live-Bands — mit Artists von nah und fern. FAQ und mehr Infos: sonaria.ch.',
   },
   {
-    topic: 'How do tickets work?',
-    text: 'Ticket types and release waves are published when sales open. Read the conditions on the ticket page for refunds, resale, and ID checks.',
+    topic: 'Ablauf und Programm',
+    text:
+      'Freitags beginnt es um 14:00 Uhr. Samstags gibt es den ganzen Tag Musik, Workshops, Konzerte, Spiel und Spass. Sonntags kannst du ausschlafen oder dich bis am Nachmittag austanzen; am frühen Abend schliessen wir die Tore wieder.',
   },
   {
-    topic: 'What can I bring?',
-    text: 'A clear bag policy or restrictions may apply. We publish a full FAQ for accessibility, lockers, cashless payment, and what is allowed at the entrance.',
+    topic: 'Line-up',
+    text:
+      'Mehr Infos folgen bald — wird verrückt. Timetable und Soundcloud-Links gibt es später auf der Website oder auf Instagram.',
   },
   {
-    topic: 'Code of conduct & safety',
-    text: 'We want everyone to feel welcome. Stewarding and welfare teams are on site — if something feels wrong, speak to staff or security right away.',
+    topic: 'Anreise (ÖV und Shuttle)',
+    text:
+      'Die Anfahrt per Auto sowie Übernachten im Camper oder Bus sind wegen der Gelände-Situation leider nicht möglich. Mit dem RBS oder dem Tram (Linie 6) bis Worb Dorf (ca. 20–30 Minuten aus der Region Bern) — von dort bringt dich unser Shuttle ans Festival. Alternativ ÖV bis Station Walkringen, Wikartswil oder Dorf (ab Bern über Worb Dorf, ca. 40 Minuten), dann etwa 30 Minuten zu Fuss; der Weg ist ausgeschildert. Die genaue Adresse geben wir nicht her — damit zusammenhängend ist die Anreise mit dem Auto nicht möglich.',
+  },
+  {
+    topic: 'Auto und Camper',
+    text:
+      'Die Anreise mit dem Auto ist untersagt — das ist eine Auflage der Gemeinde. Bitte haltet euch alle daran. Übernachten in einem Bus ist ebenfalls nicht möglich.',
+  },
+  {
+    topic: 'Awareness & Safer Space',
+    text:
+      'Wir erwarten ein rücksichtsvolles Miteinander; Diskriminierung jeglicher Art tolerieren wir nicht. Vor Ort gibt es ein erkennbares Awareness-Team für Vorfälle sowie einen Safer Space, wenn du dich zurückziehen möchtest. Das gesamte Awareness-Konzept findest du in den FAQ.',
+  },
+  {
+    topic: 'Übernachtung',
+    text:
+      'Wir empfehlen zu übernachten im eigenen Zelt — es gibt einen schönen Zeltplatz.',
+  },
+  {
+    topic: 'Inklusion & Barrierefreiheit',
+    text:
+      'Du bist willkommen, auch wenn du z. B. Einschränkungen in der Mobilität hast oder andere spezielle Bedürfnisse — melde dich bei uns. Wenn möglich, unterstützen wir dich mit dem, was du brauchst.',
+  },
+  {
+    topic: 'Tickets, Cash & Sturm',
+    text:
+      'Schnapp dir rechtzeitig ein Ticket — das Festival lebt zu 100 % von freiwilliger Arbeit und ist nicht gewinnorientiert; die Preise decken vor allem die Kosten. Bei Sturm kann das Event leider nicht stattfinden; dann versuchen wir, möglichst viel des Ticketpreises zurückzuerstatten — den genauen Anteil entscheiden wir nach den angefallenen Ausgaben.',
+  },
+  {
+    topic: 'Food',
+    text:
+      'Verschiedene externe Menschen betreiben Foodstände eigenständig. Es gibt unter anderem veganes und vegetarisches Essen. Wenn du einen eigenen Stand anbieten und etwas dazuverdienen möchtest, melde dich bei uns.',
+  },
+  {
+    topic: 'Mithelfen',
+    text:
+      'Ob Auf- oder Abbau, kulinarische Idee, Performance oder Schichtarbeit — wenn du mithelfen willst, schreib uns an events@sonaria.ch oder melde dich auf Instagram. Wir suchen u. a. Menschen für diverse Schichten, Betreiber:innen für Essensstände und noch Platz für Kunstinstallationen; beim Abbau freut sich jede helfende Hand. Instagram: @sonaria.festival',
   },
 ]
 
 function faqSlug(topic: string): string {
   return topic
     .toLowerCase()
-    .replaceAll(/[^a-z0-9]+/gu, '-')
+    .replaceAll(/[^\p{L}\p{N}]+/gu, '-')
     .replaceAll(/^-+|-+$/gu, '')
 }
 
@@ -159,9 +208,9 @@ function faqAnchorId(index: number): string {
 
 useSeoMeta({
   title: () => `${siteName.value} — FAQ`,
-  description: 'Frequently asked questions about Sonaria.',
+  description:
+    'Sonaria Festival nahe Bern: Anreise, Line-up, Tickets, Awareness & mehr.',
 })
 
-const isTouchDevice = useMediaQuery('(pointer: coarse)')
 const isLandscape = useMediaQuery('(orientation: landscape)')
 </script>

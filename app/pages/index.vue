@@ -16,6 +16,9 @@
         <Button to="/faq">
           FAQ
         </Button>
+        <Button to="https://eventfrog.ch/de/event/7441844412533991522/preview.html">
+          Tickets
+        </Button>
       </div>
     </div>
     <!-- landscape image -->
