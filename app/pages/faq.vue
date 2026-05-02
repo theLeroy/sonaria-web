@@ -154,6 +154,30 @@ const faqItems: readonly FaqItem[] = [
       'Aus dem Zusammenschluss verschiedener Kollektive und Freund:innen entsteht diesen Sommer ein neues Festival nahe Bern: drei Tage unter freiem Himmel in einer Parallelwelt, die den Alltag vergessen lässt. Es gibt drei Bühnen — zwei mit elektronischer Musik und eine mit Live-Bands — mit Artists von nah und fern. FAQ und mehr Infos: sonaria.ch.',
   },
   {
+    emoji: '🧹',
+    topic: 'Leave no trace',
+    text:
+      'Keine Vermüllung! Bitte hilf uns, das Land und seine Umgebung sauber zu halten. Lass nichts zurück, entsorge deine Abfälle und Zigarettenstummel ordnungsgemäß, respektiere die Natur, heb Abfall auf, wenn du welchen siehst, auch wenn es nicht deiner ist. Abfall ist eine kollektive Verantwortung.',
+  },
+  {
+    emoji: '🧡',
+    topic: 'Safer Space',
+    text:
+      'Unser Festival soll ein warmer, einladender Raum für alle sein. Inklusivität und Diversität ist uns wichtig. Um ein wirklich lebendiges, sicheres Umfeld zu schaffen, müssen wir die Grenzen aller respektieren, um Zustimmung bitten und darauf achten, wie wir mit einander umgehen. Respektiere den Raum anderer und unterstütz, wann immer es nötig ist. Reagier und sprich jemand vor Ort an, wenn du diskriminierendes Verhalten siehst; sei es sexistisch, homophob oder jegliche andere Form von übergriffigem Verhalten.',
+  },
+  {
+    emoji: '🚬',
+    topic: 'Zigarettenstummel',
+    text:
+      'Steck sie in deinen tragbaren Aschenbecher oder in deine Tasche. Wirf sie nicht auf den Boden! Die Umwelt ist nicht unser Aschenbecher. Wenn du keinen hast, such einen Mülleimer in der Nähe und/oder lass dich von deinen Friends unterstützen. Das Gleiche gilt für alle Abfälle.',
+  },
+  {
+    emoji: '🚬',
+    topic: 'Wasser',
+    text:
+      'Steck sie in deinen tragbaren Aschenbecher oder in deine Tasche. Wirf sie nicht auf den Boden! Die Umwelt ist nicht unser Aschenbecher. Wenn du keinen hast, such einen Mülleimer in der Nähe und/oder lass dich von deinen Friends unterstützen. Das Gleiche gilt für alle Abfälle.',
+  },
+  {
     emoji: '🦦',
     topic: 'Ablauf und Programm',
     text:
@@ -181,13 +205,13 @@ const faqItems: readonly FaqItem[] = [
     emoji: '❤️',
     topic: 'Awareness & Safer Space',
     text:
-      'Wir erwarten ein rücksichtsvolles Miteinander; Diskriminierung jeglicher Art tolerieren wir nicht. Vor Ort gibt es ein erkennbares Awareness-Team für Vorfälle sowie einen Safer Space, wenn du dich zurückziehen möchtest. Das gesamte Awareness-Konzept findest du in den FAQ.',
+      'Wir erwarten von dir ein rücksichtvolles Verhalten gegenüber allen anderen. Wir tolerieren keine Diskriminierung jeglicher Art. Am Event werden wir ein erkennbares Awareness-Team haben, bei welchem du dich bei Vorfällen melden kannst. Zudem wird es einen Safer Space geben, falls du dich etwas zurückziehen möchtest. <a href="https://nachtzug-lunaria.ch/AwarenesskonzeptNachtzugLunaria.pdf">Hier</a> findest du unser detailiertes Awarenesskonzept.',
   },
   {
     emoji: '⛺️',
     topic: 'Übernachtung',
     text:
-      'Wir empfehlen zu übernachten im eigenen Zelt — es gibt einen schönen Zeltplatz.',
+      'Wir empfehlen zu übernachten im eigenen Zelt — es gibt einen schönen Zeltplatz. Übernachten in einem Bus ist leider nicht möglich.',
   },
   {
     emoji: '☎️',
