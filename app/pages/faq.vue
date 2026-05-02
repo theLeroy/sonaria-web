@@ -1,23 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="relative">
-    <!-- landscape image -->
-    <div class="fixed inset-0 h-screen w-full object-cover">
-      <template v-if="isLandscape">
-        <HeatDistortImage
-          src="/files/sonaria_website_querformat.png"
-          alt="Sonaria background image"
-          class="absolute inset-0 hidden h-screen w-full object-cover"
-        />
-      </template>
-      <template v-else>
-        <HeatDistortImage
-          src="/files/sonaria_website_hochformat.png"
-          alt="Sonaria background image"
-          class="absolute inset-0 h-screen w-full object-cover"
-        />
-      </template>
-    </div>
     <article
       id="arti"
       class="
@@ -261,7 +244,6 @@ useSeoMeta({
     'Sonaria Festival nahe Bern: Anreise, Line-up, Tickets, Awareness & mehr.',
 })
 
-const isLandscape = useMediaQuery('(orientation: landscape)')
 </script>
 <style>
 [data-faq-html] :where(a) {

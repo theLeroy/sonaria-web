@@ -7,11 +7,13 @@
         items-center justify-center
       "
     >
-      <HeatDistortImage
-        src="/files/sonaria_festival_text.png"
-        alt="Sonaria background image"
-        class="pointer-events-none h-48 w-96 max-w-screen"
-      />
+      <ClientOnly>
+        <HeatDistortImage
+          src="/files/sonaria_festival_text.png"
+          alt="Sonaria logo image"
+          class="pointer-events-none h-48 w-96 max-w-screen"
+        />
+      </ClientOnly>
       <div
         class="pointer-events-auto z-50 flex items-center justify-center gap-4"
       >
@@ -24,7 +26,7 @@
       </div>
     </div>
     <!-- landscape image -->
-    <template v-if="isLandscape">
+    <!-- <template v-if="isLandscape">
       <HeatDistortImageInteractive
         v-if="!isTouchDevice"
         src="/files/sonaria_website_querformat.png"
@@ -51,7 +53,7 @@
         alt="Sonaria background image"
         class="absolute inset-0 h-screen w-full object-cover"
       />
-    </template>
+    </template> -->
 
     <!-- <div class="max-w-2xl space-y-4">
       <Container class="py-10">

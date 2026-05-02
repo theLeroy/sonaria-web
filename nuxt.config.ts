@@ -31,8 +31,17 @@ export default defineNuxtConfig({
           href: '/favicon.png',
         },
       ],
+      meta: [
+        {
+          name: 'theme-color',
+          content: '#425c7e',
+        },
+      ],
     },
-    pageTransition: { name: 'page-blur', mode: 'out-in' },
+    pageTransition: {
+      name: 'page-blur',
+      mode: 'out-in',
+    },
   },
 
   experimental: {
