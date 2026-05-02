@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/no-v-html -->
 <template>
   <div class="relative">
     <!-- landscape image -->
@@ -113,14 +114,14 @@
                     motion-reduce:transition-none motion-reduce:delay-0
                   "
                 >
-                  <p
+                  <div
                     class="
                       text-pretty
                       md:pl-13
                     "
-                  >
-                    {{ item.text }}
-                  </p>
+                    data-faq-html
+                    v-html="item.text"
+                  />
                 </div>
               </div>
             </details>
@@ -137,6 +138,7 @@ type FaqItem = Readonly<{
   emoji: string
   /** Plain headline (no emoji) */
   topic: string
+  /** Trusted HTML answer (links, `<br>`, emphasis, …) */
   text: string
   /** Builds `topic` letters joined with `emoji` (e.g. L💥I💥…) */
   interleaveEmojiInTopic?: true
@@ -172,7 +174,7 @@ const faqItems: readonly FaqItem[] = [
       'Steck sie in deinen tragbaren Aschenbecher oder in deine Tasche. Wirf sie nicht auf den Boden! Die Umwelt ist nicht unser Aschenbecher. Wenn du keinen hast, such einen Mülleimer in der Nähe und/oder lass dich von deinen Friends unterstützen. Das Gleiche gilt für alle Abfälle.',
   },
   {
-    emoji: '🚬',
+    emoji: '💧',
     topic: 'Wasser',
     text:
       'Steck sie in deinen tragbaren Aschenbecher oder in deine Tasche. Wirf sie nicht auf den Boden! Die Umwelt ist nicht unser Aschenbecher. Wenn du keinen hast, such einen Mülleimer in der Nähe und/oder lass dich von deinen Friends unterstützen. Das Gleiche gilt für alle Abfälle.',
@@ -262,6 +264,18 @@ useSeoMeta({
 const isLandscape = useMediaQuery('(orientation: landscape)')
 </script>
 <style>
+[data-faq-html] :where(a) {
+  font-weight: 500;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.125rem;
+  transition: opacity 0.2s;
+}
+
+[data-faq-html] :where(a):hover {
+  opacity: 0.8;
+}
+
 /* This won't work yet */
 details::details-content {
   overflow: hidden;

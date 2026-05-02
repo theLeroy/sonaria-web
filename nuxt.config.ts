@@ -24,7 +24,15 @@ export default defineNuxtConfig({
   app: {
     head: {
       title: process.env.SITE_NAME,
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/x-icon',
+          href: '/favicon.png',
+        },
+      ],
     },
+
   },
 
   experimental: {
