@@ -5,9 +5,10 @@ html {
     font-synthesis: none;
 
     /* Ensures that the content does not jump when the scrollbar is hidden */
-    scrollbar-gutter: stable;
 
     @apply antialiased text-pretty;
+    background-color: #000;
+
 }
 
 :root {
