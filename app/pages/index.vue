@@ -12,10 +12,10 @@
         alt="Sonaria background image"
         class="pointer-events-none h-48 w-96 max-w-screen"
       />
-      <div class="flex items-center justify-center">
-        <HeatDistortImage>
-          <Button>asd</Button>
-        </HeatDistortImage>
+      <div class="pointer-events-auto z-50 flex items-center justify-center">
+        <Button to="/faq">
+          FAQ
+        </Button>
       </div>
     </div>
     <!-- landscape image -->
