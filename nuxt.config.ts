@@ -32,7 +32,7 @@ export default defineNuxtConfig({
         },
       ],
     },
-
+    pageTransition: { name: 'page-blur', mode: 'out-in' },
   },
 
   experimental: {

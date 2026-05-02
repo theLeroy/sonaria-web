@@ -228,6 +228,9 @@ const state = shallowRef<{
   rafId: number
 } | null>(null)
 
+/** Bumps when tearing down so in-flight `start()` never binds to a detached canvas. */
+let runGeneration = 0
+
 const getSize = () => {
   const el = rootEl.value
   if (!el) return null
@@ -254,6 +257,7 @@ const setRendererSize = (next: {
 }
 
 const dispose = () => {
+  runGeneration += 1
   const s = state.value
   if (!s) return
 
@@ -270,6 +274,7 @@ const start = async () => {
   if (!rootEl.value || !canvasEl.value) return
   if (!resolvedSrc.value) return
 
+  const gen = runGeneration
   const canvas = canvasEl.value
   const renderer = new WebGLRenderer({
     canvas,
@@ -298,6 +303,18 @@ const start = async () => {
       },
     )
   })
+
+  if (gen !== runGeneration || canvasEl.value !== canvas) {
+    disposePendingWebGL({
+      renderer,
+      geometry,
+      material,
+      texture,
+    })
+    return
+  }
+
+  const geometryAfterTexture = geometry
   // Keep the GPU texture in linear space and do sRGB decode/encode in shader,
   // otherwise hardware sRGB decode can lead to double-decoding and dark output.
   texture.colorSpace = NoColorSpace
