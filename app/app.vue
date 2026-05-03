@@ -10,11 +10,11 @@ useHead({
 
 <template>
   <NuxtLoadingIndicator
-    color="#D5C283"
+    color="#425c7e"
     :height="4"
   />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
-  <DebugBreaky />
+  <!-- <DebugBreaky /> -->
 </template>
