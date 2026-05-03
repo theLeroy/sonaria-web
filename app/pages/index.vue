@@ -20,7 +20,7 @@
         <Button to="/faq">
           FAQ
         </Button>
-        <Button to="https://eventfrog.ch/de/event/7441844412533991522/preview.html">
+        <Button to="https://eventfrog.ch/de/p/festivals/electronic/sonaria-festival-7441844412533991522.html">
           Tickets
         </Button>
       </div>
