@@ -40,6 +40,18 @@ export default defineNuxtConfig({
           name: 'description',
           content: 'Sonaria Festival | 31.07.2026 - 02.08.2026 | Bern, Schweiz',
         },
+        {
+          name: 'og:image',
+          content: '/files/sonaria_website_querformat.png',
+        },
+        {
+          name: 'og:title',
+          content: 'Sonaria Festival',
+        },
+        {
+          name: 'og:description',
+          content: 'Sonaria Festival | 31.07.2026 - 02.08.2026 | Bern, Schweiz',
+        },
       ],
     },
     pageTransition: {
