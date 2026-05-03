@@ -36,6 +36,10 @@ export default defineNuxtConfig({
           name: 'theme-color',
           content: '#425c7e',
         },
+        {
+          name: 'description',
+          content: 'Sonaria Festival 2026',
+        },
       ],
     },
     pageTransition: {

@@ -20,8 +20,17 @@
         <Button to="/faq">
           FAQ
         </Button>
-        <Button to="https://eventfrog.ch/de/p/festivals/electronic/sonaria-festival-7441844412533991522.html">
+        <Button
+          target="_blank"
+          to="https://eventfrog.ch/de/p/festivals/electronic/sonaria-festival-7441844412533991522.html"
+        >
           Tickets
+        </Button>
+        <Button
+          to="https://www.instagram.com/sonaria.festival/"
+          target="_blank"
+        >
+          Instagram
         </Button>
       </div>
     </div>
