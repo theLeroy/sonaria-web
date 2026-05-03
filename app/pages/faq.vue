@@ -160,7 +160,7 @@ const faqItems: readonly FaqItem[] = [
     emoji: '💧',
     topic: 'Wasser',
     text:
-      'Steck sie in deinen tragbaren Aschenbecher oder in deine Tasche. Wirf sie nicht auf den Boden! Die Umwelt ist nicht unser Aschenbecher. Wenn du keinen hast, such einen Mülleimer in der Nähe und/oder lass dich von deinen Friends unterstützen. Das Gleiche gilt für alle Abfälle.',
+      'Das Wasser vor Ort ist beschränkt und muss mühsam hochgetragen werden. Bitte benutz es sparsam und verschwende es nicht. Wir empfehlen dir, eine eigene Flasche mitzubringen.',
   },
   {
     emoji: '🦦',
