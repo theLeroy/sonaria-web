@@ -21,7 +21,7 @@
               sm:text-5xl
             "
           >
-            Häufig gestellte Fragen
+            {{ pageContent.heading }}
           </h1>
 
           <div
@@ -31,6 +31,15 @@
             "
             aria-hidden="true"
           />
+
+          <div class="mt-6 flex justify-center">
+            <Button
+              :aria-label="pageContent.toggleAriaLabel"
+              @click="toggleFaqLocale"
+            >
+              {{ pageContent.toggleLabel }}
+            </Button>
+          </div>
         </header>
 
         <ul class="flex list-none flex-col gap-3 p-0">
@@ -127,102 +136,228 @@ type FaqItem = Readonly<{
   interleaveEmojiInTopic?: true
 }>
 
+type FaqLocale = 'de' | 'en'
+
+type FaqPageContent = Readonly<{
+  heading: string
+  seoDescription: string
+  toggleLabel: string
+  toggleAriaLabel: string
+  items: readonly FaqItem[]
+}>
+
 const config = useRuntimeConfig()
 const siteName = computed(() => config.public.SITE_NAME ?? 'Site')
 
-/** FAQ — `emoji`, `topic` und Antwort (`text`). Line-up nutzt Interleaving. */
-const faqItems: readonly FaqItem[] = [
-  {
-    emoji: '🚀',
-    topic: 'Was ist Sonaria Festival?',
-    text:
+const faqLocale = ref<FaqLocale>('de')
+
+const faqContentByLocale: Record<FaqLocale, FaqPageContent> = {
+  de: {
+    heading: 'Häufig gestellte Fragen',
+    seoDescription:
+      'Sonaria Festival nahe Bern: Anreise, Line-up, Tickets, Awareness & mehr.',
+    toggleLabel: 'See content in English',
+    toggleAriaLabel: 'Inhalt auf Englisch anzeigen',
+    items: [
+      {
+        emoji: '🚀',
+        topic: 'Was ist Sonaria Festival?',
+        text:
       'Aus dem Zusammenschluss verschiedener Kollektive und Freund:innen entsteht diesen Sommer ein neues Festival nahe Bern: drei Tage unter freiem Himmel in einer Parallelwelt, die den Alltag vergessen lässt. Es gibt drei Bühnen — zwei mit elektronischer Musik und eine mit Live-Bands — mit Artists von nah und fern. FAQ und mehr Infos: sonaria.ch.',
-  },
-  {
-    emoji: '🧹',
-    topic: 'Leave no trace',
-    text:
+      },
+      {
+        emoji: '🧹',
+        topic: 'Leave no trace',
+        text:
       'Keine Vermüllung! Bitte hilf uns, das Land und seine Umgebung sauber zu halten. Lass nichts zurück, entsorge deine Abfälle und Zigarettenstummel ordnungsgemäß, respektiere die Natur, heb Abfall auf, wenn du welchen siehst, auch wenn es nicht deiner ist. Abfall ist eine kollektive Verantwortung.',
-  },
-  {
-    emoji: '🧡',
-    topic: 'Safer Space',
-    text:
+      },
+      {
+        emoji: '🧡',
+        topic: 'Safer Space',
+        text:
       'Unser Festival soll ein warmer, einladender Raum für alle sein. Inklusivität und Diversität ist uns wichtig. Um ein wirklich lebendiges, sicheres Umfeld zu schaffen, müssen wir die Grenzen aller respektieren, um Zustimmung bitten und darauf achten, wie wir mit einander umgehen. Respektiere den Raum anderer und unterstütz, wann immer es nötig ist. Reagier und sprich jemand vor Ort an, wenn du diskriminierendes Verhalten siehst; sei es sexistisch, homophob oder jegliche andere Form von übergriffigem Verhalten.',
-  },
-  {
-    emoji: '🚬',
-    topic: 'Zigarettenstummel',
-    text:
+      },
+      {
+        emoji: '🚬',
+        topic: 'Zigarettenstummel',
+        text:
       'Steck sie in deinen tragbaren Aschenbecher oder in deine Tasche. Wirf sie nicht auf den Boden! Die Umwelt ist nicht unser Aschenbecher. Wenn du keinen hast, such einen Mülleimer in der Nähe und/oder lass dich von deinen Friends unterstützen. Das Gleiche gilt für alle Abfälle.',
-  },
-  {
-    emoji: '💧',
-    topic: 'Wasser',
-    text:
+      },
+      {
+        emoji: '💧',
+        topic: 'Wasser',
+        text:
       'Das Wasser vor Ort ist beschränkt und muss mühsam hochgetragen werden. Bitte benutz es sparsam und verschwende es nicht. Wir empfehlen dir, eine eigene Flasche mitzubringen.',
-  },
-  {
-    emoji: '🦦',
-    topic: 'Ablauf und Programm',
-    text:
+      },
+      {
+        emoji: '🦦',
+        topic: 'Ablauf und Programm',
+        text:
       'Freitags beginnt es um 14:00 Uhr. Samstags gibt es den ganzen Tag Musik, Workshops, Konzerte, Spiel und Spass. Sonntags kannst du ausschlafen oder dich bis am Nachmittag austanzen; am frühen Abend schliessen wir die Tore wieder.',
-  },
-  {
-    emoji: '💥',
-    topic: 'LINEUP',
-    text:
+      },
+      {
+        emoji: '💥',
+        topic: 'LINEUP',
+        text:
       'Mehr Infos folgen bald — wird verrückt. Timetable und Soundcloud-Links gibt es später auf der Website oder auf Instagram.',
-  },
-  {
-    emoji: '🏎',
-    topic: 'Anreise (ÖV und Shuttle)',
-    text:
+      },
+      {
+        emoji: '🏎',
+        topic: 'Anreise (ÖV und Shuttle)',
+        text:
       'Die Anfahrt per Auto sowie Übernachten im Camper oder Bus sind wegen der Gelände-Situation leider nicht möglich. Mit dem RBS oder dem Tram (Linie 6) bis Worb Dorf (ca. 20–30 Minuten aus der Region Bern) — von dort bringt dich unser Shuttle ans Festival. Alternativ ÖV bis Station Walkringen, Wikartswil oder Dorf (ab Bern über Worb Dorf, ca. 40 Minuten), dann etwa 30 Minuten zu Fuss; der Weg ist ausgeschildert. Die genaue Adresse geben wir nicht her — damit zusammenhängend ist die Anreise mit dem Auto nicht möglich.',
-  },
-  {
-    emoji: '🚗',
-    topic: 'Auto und Camper',
-    text:
+      },
+      {
+        emoji: '🚗',
+        topic: 'Auto und Camper',
+        text:
       'Die Anreise mit dem Auto ist untersagt — das ist eine Auflage der Gemeinde. Bitte haltet euch alle daran. Übernachten in einem Bus ist ebenfalls nicht möglich.',
-  },
-  {
-    emoji: '❤️',
-    topic: 'Awareness & Safer Space',
-    text:
+      },
+      {
+        emoji: '❤️',
+        topic: 'Awareness & Safer Space',
+        text:
       'Wir erwarten von dir ein rücksichtvolles Verhalten gegenüber allen anderen. Wir tolerieren keine Diskriminierung jeglicher Art. Am Event werden wir ein erkennbares Awareness-Team haben, bei welchem du dich bei Vorfällen melden kannst. Zudem wird es einen Safer Space geben, falls du dich etwas zurückziehen möchtest. <a href="https://nachtzug-lunaria.ch/AwarenesskonzeptNachtzugLunaria.pdf">Hier</a> findest du unser detailiertes Awarenesskonzept.',
-  },
-  {
-    emoji: '⛺️',
-    topic: 'Übernachtung',
-    text:
+      },
+      {
+        emoji: '⛺️',
+        topic: 'Übernachtung',
+        text:
       'Wir empfehlen zu übernachten im eigenen Zelt — es gibt einen schönen Zeltplatz. Übernachten in einem Bus ist leider nicht möglich.',
-  },
-  {
-    emoji: '☎️',
-    topic: 'Inklusion & Barrierefreiheit',
-    text:
+      },
+      {
+        emoji: '☎️',
+        topic: 'Inklusion & Barrierefreiheit',
+        text:
       'Du bist willkommen, auch wenn du z. B. Einschränkungen in der Mobilität hast oder andere spezielle Bedürfnisse — melde dich bei uns. Wenn möglich, unterstützen wir dich mit dem, was du brauchst.',
-  },
-  {
-    emoji: '💰',
-    topic: 'Tickets, Cash & Sturm',
-    text:
+      },
+      {
+        emoji: '💰',
+        topic: 'Tickets, Cash & Sturm',
+        text:
       'Schnapp dir rechtzeitig ein Ticket — das Festival lebt zu 100 % von freiwilliger Arbeit und ist nicht gewinnorientiert; die Preise decken vor allem die Kosten. Bei Sturm kann das Event leider nicht stattfinden; dann versuchen wir, möglichst viel des Ticketpreises zurückzuerstatten — den genauen Anteil entscheiden wir nach den angefallenen Ausgaben.',
-  },
-  {
-    emoji: '🥦',
-    topic: 'Food',
-    text:
+      },
+      {
+        emoji: '🥦',
+        topic: 'Food',
+        text:
       'Verschiedene externe Menschen betreiben Foodstände eigenständig. Es gibt unter anderem veganes und vegetarisches Essen. Wenn du einen eigenen Stand anbieten und etwas dazuverdienen möchtest, melde dich bei uns.',
-  },
-  {
-    emoji: '⭐️',
-    topic: 'Mithelfen',
-    text:
+      },
+      {
+        emoji: '⭐️',
+        topic: 'Mithelfen',
+        text:
       'Ob Auf- oder Abbau, kulinarische Idee, Performance oder Schichtarbeit — wenn du mithelfen willst, schreib uns an events@sonaria.ch oder melde dich auf Instagram. Wir suchen u. a. Menschen für diverse Schichten, Betreiber:innen für Essensstände und noch Platz für Kunstinstallationen; beim Abbau freut sich jede helfende Hand. Instagram: @sonaria.festival',
+      },
+    ],
   },
-]
+  en: {
+    heading: 'Frequently Asked Questions',
+    seoDescription:
+      'Sonaria Festival near Bern: getting there, line-up, tickets, awareness & more.',
+    toggleLabel: 'Zeig mir den Inhalt auf Deutsch',
+    toggleAriaLabel: 'Show content in German',
+    items: [
+      {
+        emoji: '🚀',
+        topic: 'What is Sonaria Festival?',
+        text:
+          'This summer, a new festival will emerge near Bern from the coming together of various collectives and friends: three days under the open sky in a parallel world that lets you forget everyday life. There are three stages — two with electronic music and one with live bands — featuring artists from near and far. FAQ and more info: sonaria.ch.',
+      },
+      {
+        emoji: '🧹',
+        topic: 'Leave no trace',
+        text:
+          'No littering! Please help us keep the land and its surroundings clean. Leave nothing behind, dispose of your waste and cigarette butts properly, respect nature, pick up trash when you see it, even if it is not yours. Waste is a collective responsibility.',
+      },
+      {
+        emoji: '🧡',
+        topic: 'Safer Space',
+        text:
+          'Our festival should be a warm, welcoming space for everyone. Inclusivity and diversity matter to us. To create a truly vibrant, safe environment, we must respect everyone\'s boundaries, ask for consent, and pay attention to how we interact with one another. Respect others\' space and support whenever necessary. Speak up and address someone on site if you witness discriminatory behavior — whether sexist, homophobic, or any other form of inappropriate conduct.',
+      },
+      {
+        emoji: '🚬',
+        topic: 'Cigarette butts',
+        text:
+          'Put them in your portable ashtray or in your pocket. Do not throw them on the ground! The environment is not our ashtray. If you do not have one, look for a nearby bin and/or ask your friends for help. The same applies to all waste.',
+      },
+      {
+        emoji: '💧',
+        topic: 'Water',
+        text:
+          'Water on site is limited and must be carried up laboriously. Please use it sparingly and do not waste it. We recommend bringing your own bottle.',
+      },
+      {
+        emoji: '🦦',
+        topic: 'Schedule and program',
+        text:
+          'On Friday it starts at 2:00 PM. On Saturday there is music, workshops, concerts, games and fun all day. On Sunday you can sleep in or keep dancing until the afternoon; in the early evening we close the gates again.',
+      },
+      {
+        emoji: '💥',
+        topic: 'LINEUP',
+        text:
+          'More info coming soon — it is going to be wild. Timetable and SoundCloud links will be available later on the website or on Instagram.',
+      },
+      {
+        emoji: '🏎',
+        topic: 'Getting there (public transport and shuttle)',
+        text:
+          'Unfortunately, driving by car as well as staying overnight in a camper or bus are not possible due to the site situation. Take the RBS or tram (line 6) to Worb Dorf (approx. 20–30 minutes from the Bern region) — from there our shuttle will take you to the festival. Alternatively, public transport to Walkringen, Wikartswil or Dorf station (from Bern via Worb Dorf, approx. 40 minutes), then about 30 minutes on foot; the route is signposted. We do not publish the exact address — this is related to the fact that car access is not possible.',
+      },
+      {
+        emoji: '🚗',
+        topic: 'Car and camper',
+        text:
+          'Access by car is prohibited — this is a requirement from the municipality. Please everyone adhere to this. Staying overnight in a bus is also not possible.',
+      },
+      {
+        emoji: '❤️',
+        topic: 'Awareness & Safer Space',
+        text:
+          'We expect considerate behavior towards everyone else. We tolerate no discrimination of any kind. At the event we will have a recognizable awareness team that you can contact in case of incidents. There will also be a safer space if you need to step away for a while. <a href="https://nachtzug-lunaria.ch/AwarenesskonzeptNachtzugLunaria.pdf">Here</a> you can find our detailed awareness concept.',
+      },
+      {
+        emoji: '⛺️',
+        topic: 'Accommodation',
+        text:
+          'We recommend staying in your own tent — there is a nice campsite. Unfortunately, staying overnight in a bus is not possible.',
+      },
+      {
+        emoji: '☎️',
+        topic: 'Inclusion & accessibility',
+        text:
+          'You are welcome even if you have mobility limitations or other special needs — please get in touch with us. Where possible, we will support you with what you need.',
+      },
+      {
+        emoji: '💰',
+        topic: 'Tickets, cash & storms',
+        text:
+          'Grab a ticket in time — the festival runs entirely on volunteer work and is non-profit; prices mainly cover costs. In case of storms the event unfortunately cannot take place; we will then try to refund as much of the ticket price as possible — the exact amount depends on expenses incurred.',
+      },
+      {
+        emoji: '🥦',
+        topic: 'Food',
+        text:
+          'Various independent vendors run food stalls on their own. There will be vegan and vegetarian options among others. If you would like to run your own stall and earn something on the side, get in touch with us.',
+      },
+      {
+        emoji: '⭐️',
+        topic: 'Volunteer',
+        text:
+          'Whether setup or teardown, culinary ideas, performance or shift work — if you want to help, write to us at events@sonaria.ch or contact us on Instagram. We are looking for people for various shifts, food stall operators, and there is still room for art installations; every helping hand is welcome during teardown. Instagram: @sonaria.festival',
+      },
+    ],
+  },
+}
+
+const pageContent = computed(() => faqContentByLocale[faqLocale.value])
+const faqItems = computed(() => pageContent.value.items)
+
+function toggleFaqLocale(): void {
+  faqLocale.value = faqLocale.value === 'de' ? 'en' : 'de'
+}
 
 function faqSlug(slugSource: string): string {
   return slugSource
@@ -232,7 +367,7 @@ function faqSlug(slugSource: string): string {
 }
 
 function faqAnchorId(index: number): string {
-  const item = faqItems[index]
+  const item = faqItems.value[index]
   const suffix = item ? faqSlug(item.topic) : ''
   const safe = suffix.length > 0 ? suffix : String(index)
   return `arti-${safe}`
@@ -240,8 +375,7 @@ function faqAnchorId(index: number): string {
 
 useSeoMeta({
   title: () => `${siteName.value} — FAQ`,
-  description:
-    'Sonaria Festival nahe Bern: Anreise, Line-up, Tickets, Awareness & mehr.',
+  description: () => pageContent.value.seoDescription,
 })
 
 </script>
