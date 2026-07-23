@@ -1,6 +1,13 @@
 /** Timetable slots with optional artist descriptions from the Artist Sheet. */
 
-export type StageId = 'silsi' | 'mutowac' | 'aerodrom'
+export type StageId = 'silsi' | 'mutowac' | 'aerodrom' | 'offspaces'
+
+export const STAGE_ORDER: readonly StageId[] = [
+  'silsi',
+  'mutowac',
+  'aerodrom',
+  'offspaces',
+] as const
 
 export type SlotTag = 'vinyl' | 'live' | 'workshop' | 'band' | 'performance' | 'offen'
 
@@ -8,6 +15,7 @@ export type LineupSlot = Readonly<{
   name: string
   time: string
   tag?: SlotTag
+  label?: string
   description?: string
   soundcloud?: string
   instagram?: string
@@ -113,6 +121,10 @@ export const freitagStages: readonly LineupStageBlock[] = [
         tag: 'performance',
       },
     ],
+  },
+  {
+    stageId: 'offspaces',
+    slots: [],
   },
 ]
 
@@ -285,6 +297,19 @@ export const samstagStages: readonly LineupStageBlock[] = [
       },
     ],
   },
+  {
+    stageId: 'offspaces',
+    slots: [
+      {
+        name: 'Kuscheln & Knutschen',
+        time: '15:00–17:00',
+        tag: 'workshop',
+        label: '[Vorspiel Kollektiv | Bern]',
+        description: 'Vorspiel ist ein sexpositives Kollektiv aus Bern. Wir schaffen Orte, an denen Konsens, Verbindung, Entdeckungslust und Achtsamkeit wachsen und gelebt werden dürfen. Der Workshop kuscheln & knutschen besteht aus zwei ineinanderfliessenden Teilen. Zunächst öffnen wir einen etwas ruhigeren, theoretischen Raum, in dem wir Konsens über praktische, körperlich erfahrbare Methoden vermitteln. Kleine Übungen laden dazu ein, sich selbst und den Raum bewusster wahrzunehmen, erste Begegnungen dürfen entstehen und Vertrauen wird aufgebaut. Im zweiten Teil darf sich der Raum öffnen: ein Open Space für alle, die möchten. Hier darf gekuschelt, vielleicht auch geknutscht werden, immer getragen von Achtsamkeit und Konsens. Dabei ist es uns besonders wichtig, die Stimmung und Bedürfnisse der Teilnehmer*innen feinfühlig aufzugreifen. Der Ablauf bleibt deshalb bewusst flexibel: Ein Open Space kann sich ebenso gut in eine gemeinsame Gesprächsrunde verwandeln, wenn der Moment danach fragt. Jede*r entscheidet jederzeit selbst, was sich stimmig anfühlt und wo die eigenen Grenzen liegen. Vielleicht nimmst du neue Impulse mit, vielleicht einfach ein neues Gefühl von Verbindung, zu dir selbst oder zu anderen. Wir beginnen gemeinsam. Der Workshop darf jederzeit früher verlassen werden. Während des gesamten Workshops sind Awareness-Personen von Vorspiel anwesend und ansprechbar. Zudem gilt das Awareness-Konzept des Sonaria auch für diesen Raum.',
+        instagram: 'https://www.instagram.com/vor.spiel',
+      },
+    ],
+  },
 ]
 
 export const sonntagStages: readonly LineupStageBlock[] = [
@@ -358,5 +383,9 @@ export const sonntagStages: readonly LineupStageBlock[] = [
         tag: 'band',
       },
     ],
+  },
+  {
+    stageId: 'offspaces',
+    slots: [],
   },
 ]
