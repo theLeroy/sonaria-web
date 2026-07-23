@@ -93,8 +93,8 @@
                 class="
                   flex cursor-pointer list-none items-center gap-4 px-3 py-4
                   text-left outline-none select-none
-                  sm:px-5
                   focus-visible:ring-2 focus-visible:ring-offset-4
+                  sm:px-5
                   [&::-webkit-details-marker]:hidden
                 "
               >
@@ -181,7 +181,12 @@
                               : undefined
                           "
                         >
-                          <div class="flex items-start justify-between gap-2">
+                          <div
+                            class="
+                              flex flex-col items-start justify-between gap-2
+                              md:flex-row
+                            "
+                          >
                             <div class="min-w-0 flex-1">
                               <p
                                 v-if="slot.tag || slot.cancelled"
@@ -201,7 +206,7 @@
                               </p>
                               <p
                                 class="
-                                  font-medium hyphens-auto wrap-break-word
+                                  font-medium wrap-break-word hyphens-auto
                                   text-white
                                 "
                                 :class="
@@ -216,7 +221,7 @@
                                 v-if="slot.label"
                                 class="
                                   mt-1 font-mono text-[0.7rem] tracking-wide
-                                  text-white/45 hyphens-auto
+                                  hyphens-auto text-white/45
                                 "
                               >
                                 {{ slot.label }}
@@ -241,8 +246,8 @@
                           <p
                             v-if="slotDescription(slot) && !slot.cancelled"
                             class="
-                              mt-2 text-xs/relaxed text-pretty text-white/70
-                              hyphens-auto
+                              mt-2 text-xs/relaxed text-pretty hyphens-auto
+                              text-white/70
                             "
                           >
                             {{ slotDescription(slot) }}
@@ -555,10 +560,9 @@ function slotLinks(slot: LineupSlot): readonly SlotLink[] {
       href: slot.soundcloud,
     })
   }
-  const instagramHrefs =
-    typeof slot.instagram === 'string'
-      ? [slot.instagram]
-      : (slot.instagram ?? [])
+  const instagramHrefs = typeof slot.instagram === 'string'
+    ? [slot.instagram]
+    : (slot.instagram ?? [])
   for (const href of instagramHrefs) {
     links.push({
       kind: 'instagram',
