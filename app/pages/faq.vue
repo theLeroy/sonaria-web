@@ -199,7 +199,7 @@ const faqContentByLocale: Record<FaqLocale, FaqPageContent> = {
         emoji: '💥',
         topic: 'LINEUP',
         text:
-      'Mehr Infos folgen bald — wird verrückt. Timetable und Soundcloud-Links gibt es später auf der Website oder auf Instagram.',
+      'Timetable und Running Order stehen online — drei Stages von Freitag bis Sonntag. Soundcloud-Links folgen später auf der Website oder auf Instagram. <a href="/lineup">Zum Line-up</a>.',
       },
       {
         emoji: '🏎',
@@ -218,6 +218,12 @@ const faqContentByLocale: Record<FaqLocale, FaqPageContent> = {
         topic: 'Awareness & Safer Space',
         text:
       'Wir erwarten von dir ein rücksichtvolles Verhalten gegenüber allen anderen. Wir tolerieren keine Diskriminierung jeglicher Art. Am Event werden wir ein erkennbares Awareness-Team haben, bei welchem du dich bei Vorfällen melden kannst. Zudem wird es einen Safer Space geben, falls du dich etwas zurückziehen möchtest. <a href="https://nachtzug-lunaria.ch/AwarenesskonzeptNachtzugLunaria.pdf">Hier</a> findest du unser detailiertes Awarenesskonzept.',
+      },
+      {
+        emoji: '❤️',
+        topic: 'Feuer und Feuerwerk',
+        text:
+      'Wegen der Tockenheit müssen wir leider Feuer und Feuerwerk verbieten. Bitte halte dich daran.',
       },
       {
         emoji: '⛺️',
@@ -298,7 +304,7 @@ const faqContentByLocale: Record<FaqLocale, FaqPageContent> = {
         emoji: '💥',
         topic: 'LINEUP',
         text:
-          'More info coming soon — it is going to be wild. Timetable and SoundCloud links will be available later on the website or on Instagram.',
+          'Timetable and running order are online — three stages from Friday to Sunday. SoundCloud links will follow later on the website or on Instagram. <a href="/lineup">Go to line-up</a>.',
       },
       {
         emoji: '🏎',
