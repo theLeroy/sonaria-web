@@ -43,12 +43,6 @@
             >
               {{ pageContent.toggleLabel }}
             </Button>
-            <Button
-              to="/files/sonaria_timetable.pdf"
-              target="_blank"
-            >
-              {{ pageContent.pdfLabel }}
-            </Button>
           </div>
 
           <ul
@@ -142,9 +136,8 @@
 
                   <div
                     class="
-                      grid grid-cols-1 gap-5
-                      sm:grid-cols-2
-                      xl:grid-cols-4
+                      grid grid-cols-2 gap-5
+                      lg:grid-cols-4
                     "
                   >
                     <section
@@ -211,12 +204,12 @@
                           </div>
 
                           <p
-                            v-if="slot.description"
+                            v-if="slotDescription(slot)"
                             class="
                               mt-2 text-xs/relaxed text-pretty text-white/70
                             "
                           >
-                            {{ slot.description }}
+                            {{ slotDescription(slot) }}
                           </p>
 
                           <div
@@ -349,7 +342,6 @@ type LineupPageContent = Readonly<{
   seoDescription: string
   toggleLabel: string
   toggleAriaLabel: string
-  pdfLabel: string
   tagLabels: Readonly<Record<SlotTag, string>>
   stageNames: Readonly<Record<StageId, string>>
   days: readonly LineupDay[]
@@ -409,7 +401,6 @@ const lineupContentByLocale: Record<LineupLocale, LineupPageContent> = {
       'Sonaria Festival Line-up und Timetable: Silsi, Mutować, Aerodrom und Offspaces von Freitag bis Sonntag.',
     toggleLabel: 'See content in English',
     toggleAriaLabel: 'Inhalt auf Englisch anzeigen',
-    pdfLabel: 'PDF',
     tagLabels: {
       vinyl: 'Vinyl',
       live: 'Live',
@@ -451,7 +442,6 @@ const lineupContentByLocale: Record<LineupLocale, LineupPageContent> = {
       'Sonaria Festival line-up and timetable: Silsi, Mutować, Aerodrom and Offspaces from Friday to Sunday.',
     toggleLabel: 'Zeig mir den Inhalt auf Deutsch',
     toggleAriaLabel: 'Show content in German',
-    pdfLabel: 'PDF',
     tagLabels: {
       vinyl: 'Vinyl',
       live: 'Live',
@@ -470,19 +460,16 @@ const lineupContentByLocale: Record<LineupLocale, LineupPageContent> = {
       {
         id: 'freitag',
         name: 'Friday',
-        note: 'Night rest · Stages closed · 02:00–10:00',
         stages: freitagStages,
       },
       {
         id: 'samstag',
         name: 'Saturday',
-        note: 'Daytime from 10:00 — the night runs into Sunday morning.',
         stages: samstagStages,
       },
       {
         id: 'sonntag',
         name: 'Sunday',
-        note: 'Sleep in or keep dancing — we close in the afternoon.',
         stages: sonntagStages,
       },
     ],
@@ -511,6 +498,10 @@ function tagLabel(tag: SlotTag): string {
 
 function showsSlotTime(slot: LineupSlot): boolean {
   return slot.tag === 'workshop' || slot.tag === 'performance'
+}
+
+function slotDescription(slot: LineupSlot): string | undefined {
+  return slot.description?.[lineupLocale.value]
 }
 
 function slotLinks(slot: LineupSlot): readonly SlotLink[] {
