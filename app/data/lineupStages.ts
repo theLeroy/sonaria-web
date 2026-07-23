@@ -16,7 +16,10 @@ export type LineupSlot = Readonly<{
   time: string
   tag?: SlotTag
   label?: string
-  description?: Readonly<{ de: string, en: string }>
+  description?: Readonly<{
+    de: string
+    en: string
+  }>
   soundcloud?: string
   instagram?: string
   spotify?: string
@@ -33,7 +36,7 @@ export const freitagStages: readonly LineupStageBlock[] = [
     stageId: 'silsi',
     slots: [
       {
-        name: 'Wokey (Chames)',
+        name: 'wokey',
         time: '18:00–20:00',
         soundcloud: 'https://on.soundcloud.com/UB9nVcwlORF20FJzMo',
         instagram: 'https://www.instagram.com/wokey._',
@@ -43,7 +46,7 @@ export const freitagStages: readonly LineupStageBlock[] = [
         time: '20:00–22:00',
       },
       {
-        name: 'Henk',
+        name: 'DJ Henk',
         time: '22:00–23:30',
         tag: 'vinyl',
         soundcloud: 'https://on.soundcloud.com/9GjVwJXPLaTi2dGcY4',
@@ -69,7 +72,7 @@ export const freitagStages: readonly LineupStageBlock[] = [
         instagram: 'https://www.instagram.com/_sryxo/',
       },
       {
-        name: 'Zelev',
+        name: 'ZELEV',
         time: '18:00–20:00',
         description: {
           de: 'Zelev pendelt zwischen Zug und Zürich und bringt eine lange Geschichte mit Musik mit: Chor, Gesang, Piano, Songwriting — über 15 Jahre Feingefühl für Stimme, Melodie und alles, was zwischen den Tönen passiert. Bevor der Club dazukam, war Musik für sie längst Sprache, Rückzugsort und innerer Puls. Seit 2022 spielt sie in Clubs und auf Festivals in der Schweiz, Berlin, London und Vietnam und hat sich dabei eine eigene Spur gelegt. Ihre Sets bewegen sich durch tiefe Basslines, meditative Layer, perkussive Funken und Tracks mit Geheimfach — sinnlich, wach und nie zu offensichtlich. Musik, die Raum lässt, aber trotzdem Bewegung auslöst. Als leidenschaftliche Diggerin zieht es Zelev zum Unbekannten: zu Sounds, die selten wirken, aber sofort andocken; zu Tracks, die nicht alles verraten und trotzdem hängen bleiben. Kein Genre-Käfig, kein Standardprogramm — eher ein feines Gespür für Atmosphäre, Körper und den Moment, in dem Menschen, Musik und Raum kurz dieselbe Sprache sprechen. Zelev sucht das Unerwartete und macht es zugänglich. Sound für offene Ohren, schnelle Füsse und weiche Knie.',
@@ -115,7 +118,7 @@ export const freitagStages: readonly LineupStageBlock[] = [
         tag: 'workshop',
       },
       {
-        name: 'Eggs and Tiaras',
+        name: 'eggs and tiaras',
         time: '21:00–22:00',
         tag: 'band',
         description: {
@@ -172,7 +175,7 @@ export const samstagStages: readonly LineupStageBlock[] = [
         time: '16:30–18:00',
       },
       {
-        name: 'Mount thizzz',
+        name: 'Mount Thizzz',
         time: '18:00–20:00',
         soundcloud: 'https://soundcloud.com/mount-thizzz',
         instagram: 'https://www.instagram.com/montis.creations/',
@@ -215,12 +218,12 @@ export const samstagStages: readonly LineupStageBlock[] = [
         instagram: 'https://www.instagram.com/___jola___/',
       },
       {
-        name: 'RTM b2b vert_31',
+        name: 'RTM feat. vert_31',
         time: '17:00–19:00',
         soundcloud: 'https://on.soundcloud.com/OkgSh1HsZfIsLM32Vy',
       },
       {
-        name: 'DJ Nebelmaschine & LariFari feat Reznap',
+        name: 'Dj Nebelmaschine, LariFari & Reznap',
         time: '19:00–21:00',
         tag: 'live',
         description: {
@@ -235,7 +238,7 @@ export const samstagStages: readonly LineupStageBlock[] = [
         time: '21:00–23:00',
       },
       {
-        name: 'Acid Gurke',
+        name: 'acidgurke',
         time: '23:00–01:00',
         description: {
           de: 'acidgurke ist ein tiefer Trip durch die Sphären des musikalischen Untergrunds. Ihre Sets sind zugleich melodisch und perkussiv, hypnotisch und aufweckend, wellenartig und impulsiv. Für ihre Reise auf dem Sonaria 2026 hat acidgurke einige Überraschungen in ihrer Wundertüte. Eines kann sie jedoch jetzt schon verraten: Diese Reise kennt nur eine Richtung und das ist vorwärts.',
@@ -274,7 +277,7 @@ export const samstagStages: readonly LineupStageBlock[] = [
         instagram: 'https://www.instagram.com/print_flow_bern',
       },
       {
-        name: 'Male accountability',
+        name: 'Sexualisierte Gewalt passiert – auf welcher Seite stehst du als cis Mann?',
         time: '11:00–13:00',
         tag: 'workshop',
         description: {
@@ -325,7 +328,7 @@ export const samstagStages: readonly LineupStageBlock[] = [
         instagram: 'https://www.instagram.com/homemade_iscream',
       },
       {
-        name: 'Josquin',
+        name: 'JOSQUINS',
         time: '23:30–01:00',
         tag: 'live',
         description: {
@@ -376,8 +379,9 @@ export const samstagStages: readonly LineupStageBlock[] = [
         time: '',
       },
       {
-        name: 'Tattoo',
+        name: 'Hannjuschka & Floh',
         time: '',
+        tag: 'workshop',
       },
       {
         name: 'Tripity Happening',
@@ -410,7 +414,7 @@ export const sonntagStages: readonly LineupStageBlock[] = [
         time: '06:00–08:00',
       },
       {
-        name: 'Shake',
+        name: 'Schacke99',
         time: '09:00–11:00',
       },
       {
@@ -434,7 +438,7 @@ export const sonntagStages: readonly LineupStageBlock[] = [
         instagram: 'https://www.instagram.com/regula.rec/',
       },
       {
-        name: 'Loeggs b2b Karl Kaseltzer',
+        name: 'Karl Kaseltzer b2b Loeggs',
         time: '12:00–14:00',
         description: {
           de: 'Seit langem befreundet und nach einem gemeinsamen bis in die Abendstunden gezogenen Afterhour-Set gemerkt, gemeinsam machts mehr Spass! Mit einer geteilten Leidenschaft für Minimal und Microhouse.',
