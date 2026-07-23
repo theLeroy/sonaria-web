@@ -438,6 +438,7 @@ const lineupContentByLocale: Record<LineupLocale, LineupPageContent> = {
       band: 'Band',
       performance: 'Performance',
       offen: 'Offen',
+      tattoo: 'Tattoo',
     },
     stageNames: {
       silsi: 'Silsi',
@@ -480,6 +481,7 @@ const lineupContentByLocale: Record<LineupLocale, LineupPageContent> = {
       band: 'Band',
       performance: 'Performance',
       offen: 'TBD',
+      tattoo: 'Tattoo',
     },
     stageNames: {
       silsi: 'Silsi',

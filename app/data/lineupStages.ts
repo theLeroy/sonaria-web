@@ -9,7 +9,7 @@ export const STAGE_ORDER: readonly StageId[] = [
   'offspaces',
 ] as const
 
-export type SlotTag = 'vinyl' | 'live' | 'workshop' | 'band' | 'performance' | 'offen' | 'Tattoo'
+export type SlotTag = 'vinyl' | 'live' | 'workshop' | 'band' | 'performance' | 'offen' | 'tattoo'
 
 export type LineupSlot = Readonly<{
   name: string
@@ -385,7 +385,7 @@ export const samstagStages: readonly LineupStageBlock[] = [
       {
         name: 'Hannjuschka & Floh',
         time: '',
-        tag: 'Tattoo',
+        tag: 'tattoo',
         instagram: [
           'https://www.instagram.com/hannjuschka/',
           'https://www.instagram.com/floh.taetowiert/',
