@@ -3,10 +3,11 @@
     <article
       id="arti"
       class="
-        relative z-20 min-h-screen overflow-y-auto px-4 py-16
+        relative z-20 min-h-screen overflow-y-auto px-2 py-16
         sm:px-8 sm:py-20
         lg:px-10
       "
+      :lang="lineupLocale"
       aria-labelledby="lineup-heading"
     >
       <div class="mx-auto flex w-full max-w-360 flex-col gap-12">
@@ -90,8 +91,9 @@
             >
               <summary
                 class="
-                  flex cursor-pointer list-none items-center gap-4 px-5 py-4
+                  flex cursor-pointer list-none items-center gap-4 px-3 py-4
                   text-left outline-none select-none
+                  sm:px-5
                   focus-visible:ring-2 focus-visible:ring-offset-4
                   [&::-webkit-details-marker]:hidden
                 "
@@ -123,7 +125,7 @@
               >
                 <div
                   class="
-                    min-h-0 border-t border-white/10 px-4 pt-4 pb-5
+                    min-h-0 border-t border-white/10 px-2 pt-4 pb-5
                     sm:px-5
                   "
                 >
@@ -136,7 +138,8 @@
 
                   <div
                     class="
-                      grid grid-cols-2 gap-5
+                      grid grid-cols-2 gap-2
+                      sm:gap-5
                       lg:grid-cols-4
                     "
                   >
@@ -164,7 +167,8 @@
                           v-for="(slot, slotIndex) in stageSlots(day, stageId)"
                           :key="`${day.id}-${stageId}-${slotIndex}`"
                           class="
-                            rounded-xl border border-white/10 bg-white/5 p-3
+                            rounded-xl border border-white/10 bg-white/5 p-2
+                            sm:p-3
                           "
                           :class="[
                             stageBorderClass(stageId),
@@ -196,7 +200,10 @@
                                 </span>
                               </p>
                               <p
-                                class="font-medium wrap-break-word text-white"
+                                class="
+                                  font-medium hyphens-auto wrap-break-word
+                                  text-white
+                                "
                                 :class="
                                   slot.cancelled && `
                                     line-through decoration-white/50
@@ -209,7 +216,7 @@
                                 v-if="slot.label"
                                 class="
                                   mt-1 font-mono text-[0.7rem] tracking-wide
-                                  text-white/45
+                                  text-white/45 hyphens-auto
                                 "
                               >
                                 {{ slot.label }}
@@ -235,6 +242,7 @@
                             v-if="slotDescription(slot) && !slot.cancelled"
                             class="
                               mt-2 text-xs/relaxed text-pretty text-white/70
+                              hyphens-auto
                             "
                           >
                             {{ slotDescription(slot) }}
