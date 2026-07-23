@@ -9,7 +9,7 @@ export const STAGE_ORDER: readonly StageId[] = [
   'offspaces',
 ] as const
 
-export type SlotTag = 'vinyl' | 'live' | 'workshop' | 'band' | 'performance' | 'offen'
+export type SlotTag = 'vinyl' | 'live' | 'workshop' | 'band' | 'performance' | 'offen' | 'Tattoo'
 
 export type LineupSlot = Readonly<{
   name: string
