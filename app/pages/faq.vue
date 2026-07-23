@@ -199,7 +199,7 @@ const faqContentByLocale: Record<FaqLocale, FaqPageContent> = {
         emoji: '💥',
         topic: 'LINEUP',
         text:
-      'Timetable und Running Order stehen online — drei Stages von Freitag bis Sonntag. Soundcloud-Links folgen später auf der Website oder auf Instagram. <a href="/lineup">Zum Line-up</a>.',
+      'Timetable und Running Order stehen online — drei Stages von Freitag bis Sonntag, inkl. Artist-Infos und Links. <a href="/lineup">Zum Line-up</a>.',
       },
       {
         emoji: '🏎',
@@ -304,7 +304,7 @@ const faqContentByLocale: Record<FaqLocale, FaqPageContent> = {
         emoji: '💥',
         topic: 'LINEUP',
         text:
-          'Timetable and running order are online — three stages from Friday to Sunday. SoundCloud links will follow later on the website or on Instagram. <a href="/lineup">Go to line-up</a>.',
+          'Timetable and running order are online — three stages from Friday to Sunday, including artist info and links. <a href="/lineup">Go to line-up</a>.',
       },
       {
         emoji: '🏎',

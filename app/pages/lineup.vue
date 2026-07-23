@@ -169,14 +169,23 @@
                               <p
                                 v-if="slot.tag"
                                 class="
-                                  mb-1 font-mono text-[0.65rem] tracking-[0.18em]
-                                  text-white/45 uppercase
+                                  mb-1 font-mono text-[0.65rem]
+                                  tracking-[0.18em] text-white/45 uppercase
                                 "
                               >
                                 {{ tagLabel(slot.tag) }}
                               </p>
                               <p class="font-medium wrap-break-word text-white">
                                 {{ slot.name }}
+                              </p>
+                              <p
+                                v-if="slot.label"
+                                class="
+                                  mt-1 font-mono text-[0.7rem] tracking-wide
+                                  text-white/45
+                                "
+                              >
+                                {{ slot.label }}
                               </p>
                             </div>
                             <p
@@ -198,19 +207,26 @@
                             {{ slot.description }}
                           </p>
 
-                          <a
-                            v-if="slot.link"
-                            class="
-                              mt-2 inline-block font-mono text-xs tracking-wide
-                              text-white/50 underline-offset-2 transition-opacity
-                              hover:text-white/80 hover:underline hover:opacity-80
-                            "
-                            :href="slot.link"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          <div
+                            v-if="slotLinks(slot).length > 0"
+                            class="mt-2 flex flex-wrap gap-x-4 gap-y-1"
                           >
-                            {{ linkLabel(slot.link) }}
-                          </a>
+                            <a
+                              v-for="item in slotLinks(slot)"
+                              :key="item.href"
+                              class="
+                                font-mono text-xs tracking-wide text-white/50
+                                underline-offset-2 transition-opacity
+                                hover:text-white/80 hover:underline
+                                hover:opacity-80
+                              "
+                              :href="item.href"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {{ item.label }}
+                            </a>
+                          </div>
                         </li>
                       </ul>
                     </section>
@@ -230,10 +246,16 @@ import {
   freitagStages,
   samstagStages,
   sonntagStages,
+  type LineupSlot,
   type LineupStageBlock,
   type SlotTag,
   type StageId,
 } from '~/data/lineupStages'
+
+type SlotLink = Readonly<{
+  label: string
+  href: string
+}>
 
 type LineupDayId = 'freitag' | 'samstag' | 'sonntag'
 
@@ -264,9 +286,21 @@ const siteName = computed(() => config.public.SITE_NAME ?? 'Site')
 const lineupLocale = ref<LineupLocale>('de')
 
 const stages = [
-  { id: 'silsi' as const, name: 'Silsi', dotClass: 'bg-cyan-300' },
-  { id: 'mutowac' as const, name: 'Mutować', dotClass: 'bg-fuchsia-400' },
-  { id: 'aerodrom' as const, name: 'Aerodrom', dotClass: 'bg-amber-300' },
+  {
+    id: 'silsi' as const,
+    name: 'Silsi',
+    dotClass: 'bg-cyan-300',
+  },
+  {
+    id: 'mutowac' as const,
+    name: 'Mutować',
+    dotClass: 'bg-fuchsia-400',
+  },
+  {
+    id: 'aerodrom' as const,
+    name: 'Aerodrom',
+    dotClass: 'bg-amber-300',
+  },
 ]
 
 const stageDotClass = (stageId: StageId): string => {
@@ -387,17 +421,33 @@ function tagLabel(tag: SlotTag): string {
   return pageContent.value.tagLabels[tag]
 }
 
-function linkLabel(url: string): string {
-  if (url.includes('soundcloud')) {
-    return 'SoundCloud'
-  }
-  if (url.includes('spotify')) {
-    return 'Spotify'
-  }
-  if (url.includes('instagram')) {
-    return 'Instagram'
-  }
-  return 'Link'
+function slotLinks(slot: LineupSlot): readonly SlotLink[] {
+  return [
+    ...(slot.soundcloud
+      ? [
+          {
+            label: 'SoundCloud',
+            href: slot.soundcloud,
+          } as const,
+        ]
+      : []),
+    ...(slot.instagram
+      ? [
+          {
+            label: 'Instagram',
+            href: slot.instagram,
+          } as const,
+        ]
+      : []),
+    ...(slot.website
+      ? [
+          {
+            label: slot.website.includes('spotify') ? 'Spotify' : 'Website',
+            href: slot.website,
+          } as const,
+        ]
+      : []),
+  ]
 }
 
 function lineupAnchorId(dayId: LineupDayId): string {
