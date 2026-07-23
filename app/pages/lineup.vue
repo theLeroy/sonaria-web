@@ -166,20 +166,43 @@
                           class="
                             rounded-xl border border-white/10 bg-white/5 p-3
                           "
-                          :class="stageBorderClass(stageId)"
+                          :class="[
+                            stageBorderClass(stageId),
+                            slot.cancelled
+                              && 'border-white/10 bg-white/3 opacity-55',
+                          ]"
+                          :aria-label="
+                            slot.cancelled
+                              ? `${slot.name} — ${pageContent.cancelledLabel}`
+                              : undefined
+                          "
                         >
                           <div class="flex items-start justify-between gap-2">
                             <div class="min-w-0 flex-1">
                               <p
-                                v-if="slot.tag"
+                                v-if="slot.tag || slot.cancelled"
                                 class="
-                                  mb-1 font-mono text-[0.65rem]
+                                  mb-1 flex flex-wrap items-center gap-x-2
+                                  gap-y-1 font-mono text-[0.65rem]
                                   tracking-[0.18em] text-white/45 uppercase
                                 "
                               >
-                                {{ tagLabel(slot.tag) }}
+                                <span v-if="slot.tag">{{ tagLabel(slot.tag) }}</span>
+                                <span
+                                  v-if="slot.cancelled"
+                                  class="text-amber-300"
+                                >
+                                  {{ pageContent.cancelledLabel }}
+                                </span>
                               </p>
-                              <p class="font-medium wrap-break-word text-white">
+                              <p
+                                class="font-medium wrap-break-word text-white"
+                                :class="
+                                  slot.cancelled && `
+                                    line-through decoration-white/50
+                                  `
+                                "
+                              >
                                 {{ slot.name }}
                               </p>
                               <p
@@ -198,13 +221,18 @@
                                 shrink-0 font-mono text-[0.7rem] tracking-wide
                                 text-white/55
                               "
+                              :class="
+                                slot.cancelled && `
+                                  line-through decoration-white/40
+                                `
+                              "
                             >
                               {{ slot.time }}
                             </p>
                           </div>
 
                           <p
-                            v-if="slotDescription(slot)"
+                            v-if="slotDescription(slot) && !slot.cancelled"
                             class="
                               mt-2 text-xs/relaxed text-pretty text-white/70
                             "
@@ -213,7 +241,7 @@
                           </p>
 
                           <div
-                            v-if="slotLinks(slot).length > 0"
+                            v-if="slotLinks(slot).length > 0 && !slot.cancelled"
                             class="mt-3 flex flex-wrap gap-2"
                           >
                             <a
@@ -342,6 +370,7 @@ type LineupPageContent = Readonly<{
   seoDescription: string
   toggleLabel: string
   toggleAriaLabel: string
+  cancelledLabel: string
   tagLabels: Readonly<Record<SlotTag, string>>
   stageNames: Readonly<Record<StageId, string>>
   days: readonly LineupDay[]
@@ -401,6 +430,7 @@ const lineupContentByLocale: Record<LineupLocale, LineupPageContent> = {
       'Sonaria Festival Line-up und Timetable: Silsi, Mutować, Aerodrom und Offspaces von Freitag bis Sonntag.',
     toggleLabel: 'See content in English',
     toggleAriaLabel: 'Inhalt auf Englisch anzeigen',
+    cancelledLabel: 'Abgesagt',
     tagLabels: {
       vinyl: 'Vinyl',
       live: 'Live',
@@ -442,6 +472,7 @@ const lineupContentByLocale: Record<LineupLocale, LineupPageContent> = {
       'Sonaria Festival line-up and timetable: Silsi, Mutować, Aerodrom and Offspaces from Friday to Sunday.',
     toggleLabel: 'Zeig mir den Inhalt auf Deutsch',
     toggleAriaLabel: 'Show content in German',
+    cancelledLabel: 'Cancelled',
     tagLabels: {
       vinyl: 'Vinyl',
       live: 'Live',

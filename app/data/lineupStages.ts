@@ -16,6 +16,7 @@ export type LineupSlot = Readonly<{
   time: string
   tag?: SlotTag
   label?: string
+  cancelled?: boolean
   description?: Readonly<{
     de: string
     en: string
@@ -129,7 +130,7 @@ export const freitagStages: readonly LineupStageBlock[] = [
         instagram: 'https://www.instagram.com/eggs_and_tiaras/',
       },
       {
-        name: 'Tanz Performance',
+        name: 'FUSION',
         time: '22:30–23:30',
         tag: 'performance',
       },
@@ -291,6 +292,7 @@ export const samstagStages: readonly LineupStageBlock[] = [
         name: 'Schreibwerkstatt',
         time: '13:00–14:00',
         tag: 'workshop',
+        cancelled: true,
       },
       {
         name: 'Pubquiz',
