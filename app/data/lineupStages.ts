@@ -379,6 +379,8 @@ export const samstagStages: readonly LineupStageBlock[] = [
       {
         name: 'Rave it Save',
         time: '',
+        instagram: 'https://www.instagram.com/raveitsafe/',
+        website: 'https://www.raveitsave.ch',
       },
       {
         name: 'Hannjuschka & Floh',
