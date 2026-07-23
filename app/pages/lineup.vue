@@ -190,7 +190,7 @@
                                 <span v-if="slot.tag">{{ tagLabel(slot.tag) }}</span>
                                 <span
                                   v-if="slot.cancelled"
-                                  class="text-amber-300"
+                                  class="text-white/70"
                                 >
                                   {{ pageContent.cancelledLabel }}
                                 </span>
