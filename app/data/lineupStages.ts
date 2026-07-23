@@ -22,7 +22,7 @@ export type LineupSlot = Readonly<{
     en: string
   }>
   soundcloud?: string
-  instagram?: string
+  instagram?: string | readonly string[]
   spotify?: string
   website?: string
 }>
@@ -383,7 +383,11 @@ export const samstagStages: readonly LineupStageBlock[] = [
       {
         name: 'Hannjuschka & Floh',
         time: '',
-        tag: 'workshop',
+        tag: 'Tattoo',
+        instagram: [
+          'https://www.instagram.com/hannjuschka/',
+          'https://www.instagram.com/floh.taetowiert/',
+        ],
       },
       {
         name: 'Tripity Happening',

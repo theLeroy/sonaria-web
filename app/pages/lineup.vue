@@ -545,11 +545,15 @@ function slotLinks(slot: LineupSlot): readonly SlotLink[] {
       href: slot.soundcloud,
     })
   }
-  if (slot.instagram) {
+  const instagramHrefs =
+    typeof slot.instagram === 'string'
+      ? [slot.instagram]
+      : (slot.instagram ?? [])
+  for (const href of instagramHrefs) {
     links.push({
       kind: 'instagram',
       label: 'Instagram',
-      href: slot.instagram,
+      href,
     })
   }
   if (slot.spotify) {
