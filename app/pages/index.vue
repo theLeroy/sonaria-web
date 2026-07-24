@@ -86,7 +86,7 @@ const siteName = computed(() => config.public.SITE_NAME ?? 'Site')
 
 useSeoMeta({
   title: siteName.value,
-  description: 'Local-only Nuxt build (no backend).',
+  description: 'Sonaria Festival 2026',
 })
 
 const isTouchDevice = useMediaQuery('(pointer: coarse)')
