@@ -205,7 +205,7 @@ const faqContentByLocale: Record<FaqLocale, FaqPageContent> = {
         emoji: '🏎',
         topic: 'Anreise (ÖV und Shuttle)',
         text:
-      'Die Anfahrt per Auto sowie Übernachten im Camper oder Bus sind wegen der Gelände-Situation leider nicht möglich. Mit dem RBS oder dem Tram (Linie 6) bis Worb Dorf (ca. 20–30 Minuten aus der Region Bern) — von dort bringt dich unser Shuttle ans Festival. Shuttle-Zeiten: Fr: 13:30-23:00 zuerst mit 2, dann mit 1 Bus, je nach Menge Menschen gegen Abend Sa: 11:30-16:30 nur 1 Bus So: 10:30-18:30 2 Busse. Die busse fahren in beide Richtungen, es ist also auch möglich, mit dem Shuttle nach Worb Dorf zu fahren.',
+      'Die Anfahrt per Auto sowie Übernachten im Camper oder Bus sind wegen der Gelände-Situation leider nicht möglich. Mit dem RBS oder dem Tram (Linie 6) bis Worb Dorf (ca. 20–30 Minuten von Bern) — von dort bringt dich unser Shuttle ans Festival. Shuttle-Zeiten: Fr: 13:30-23:00. Sa: 11:30-16:30. So: 10:30-18:30. <br> Die Busse fahren in beide Richtungen, es ist also auch möglich, mit dem Shuttle nach Worb Dorf zu fahren. <br> Falls ihr lieber einen schönen 35 Minuten Weg hinauf laufen wollt, gibt es die Möglichkeit von Worb weiter den ÖV zu nehmen bis „Arni BE, Tanne“. Von da aus ist der Weg ausgeschildert.',
       },
       {
         emoji: '🚗',
