@@ -190,7 +190,7 @@ export const samstagStages: readonly LineupStageBlock[] = [
         time: '22:00–00:00',
       },
       {
-        name: 'Shady',
+        name: 'Shredder',
         time: '00:00–02:00',
       },
       {
