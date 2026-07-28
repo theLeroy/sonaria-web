@@ -182,7 +182,7 @@ export const samstagStages: readonly LineupStageBlock[] = [
         instagram: 'https://www.instagram.com/montis.creations/',
       },
       {
-        name: 'Chevril',
+        name: 'vivimo',
         time: '20:00–22:00',
       },
       {
