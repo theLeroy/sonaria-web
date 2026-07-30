@@ -135,6 +135,7 @@ export const freitagStages: readonly LineupStageBlock[] = [
         name: 'FUSION',
         time: '22:30–23:30',
         tag: 'performance',
+        cancelled: true,
       },
       {
         name: 'Karaoke',
