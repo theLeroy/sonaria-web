@@ -543,7 +543,7 @@ function tagLabel(tag: SlotTag): string {
 }
 
 function showsSlotTime(slot: LineupSlot): boolean {
-  return slot.tag === 'workshop' || slot.tag === 'performance'
+  return slot.tag === 'workshop' || slot.tag === 'performance' || slot.tag === 'band'
 }
 
 function slotDescription(slot: LineupSlot): string | undefined {
