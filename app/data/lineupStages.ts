@@ -45,6 +45,8 @@ export const freitagStages: readonly LineupStageBlock[] = [
       {
         name: 'mae.be',
         time: '20:00–22:00',
+        instagram: 'https://www.instagram.com/mae.be.mad?igsh=NmFibDc3OTh1aG5z',
+        soundcloud: 'https://on.soundcloud.com/WdVEk9gQO6bIHAoolX',
       },
       {
         name: 'DJ Henk',
