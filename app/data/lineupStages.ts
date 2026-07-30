@@ -298,7 +298,7 @@ export const samstagStages: readonly LineupStageBlock[] = [
       },
       {
         name: 'Pubquiz',
-        time: '15:00–16:30',
+        time: '14:30–16:00',
         tag: 'workshop',
         description: {
           de: 'Gehirnzellen aktivieren ist die beste Vorbereitung für eine wilde Ravenacht, das wussten bereits Römer:innen ( - oder so?) Komm vorbei, in deiner Gruppe oder alleine, und zeig, wieviel unnützes Wissen du auf dem Kasten hast. Die Gewinner:innen tanzen danach am glücklichsten!',
