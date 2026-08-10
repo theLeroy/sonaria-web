@@ -23,12 +23,12 @@
         <Button to="/lineup">
           Line-up
         </Button>
-        <Button
+        <!-- <Button
           target="_blank"
           to="https://eventfrog.ch/de/p/festivals/electronic/sonaria-festival-7441844412533991522.html"
         >
           Tickets
-        </Button>
+        </Button> -->
         <Button
           to="https://www.instagram.com/sonaria.festival/"
           target="_blank"
